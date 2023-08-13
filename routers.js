@@ -99,6 +99,32 @@ app.get('/home_page_login', function(req, res) {
     
 
 });
+
+// Páginas de projetos. Essas páginas nos levará a projetos que existem através de parâmetros. É preciso ser encarregado.
+app.get('/projects/:name', function(req, res) {
+    res.sendFile(path.join(__dirname, '/templates/template_boot/project_template.html'));
+
+});
+app.get('/projectapi/:nameproject', function(req, res) {
+    const file_json = fs.readFile(path.join(__dirname, `/fake_db/project_info/${req.params.nameproject}.json`), "utf-8", (err, jsonString) => {
+        if (err) {
+          console.log("File read failed:", err);
+          res.send("Falha de autenticação")
+          return
+        }
+        console.log("File data:", jsonString);
+        const to_string_json = JSON.parse(jsonString)
+        console.log(to_string_json)
+
+       
+        res.json(jsonString)
+        
+      })
+    
+    
+}
+
+);
 // route css elements from template
 app.use('/elementoscss', rota_css)
 
