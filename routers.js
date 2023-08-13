@@ -12,6 +12,8 @@ var cookieParser = require('cookie-parser')
 //Biblioteca para ler arquivos
 const fs = require('fs')
 
+//importa middleware de autenticação
+const auth_mid = require('./funcs/login_req.js')
 
 
 
@@ -80,7 +82,7 @@ app.post('/login_request', function(req, res) {
     
 });
 
-app.get('/home_page_login', function(req, res) {
+app.get('/home_page_login',  function(req, res) {
     try {
         const teste = req.session.username
       }
@@ -101,11 +103,12 @@ app.get('/home_page_login', function(req, res) {
 });
 
 // Páginas de projetos. Essas páginas nos levará a projetos que existem através de parâmetros. É preciso ser encarregado.
-app.get('/projects/:name', function(req, res) {
+app.get('/projects/:name', auth_mid,  function(req, res) {
     res.sendFile(path.join(__dirname, '/templates/template_boot/project_template.html'));
 
 });
-app.get('/projectapi/:nameproject', function(req, res) {
+app.get('/projectapi/:nameproject', 
+ function(req, res) {
     const file_json = fs.readFile(path.join(__dirname, `/fake_db/project_info/${req.params.nameproject}.json`), "utf-8", (err, jsonString) => {
         if (err) {
           console.log("File read failed:", err);
