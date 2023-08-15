@@ -14,7 +14,11 @@ const fs = require('fs')
 
 //importa middleware de autenticação
 const auth_mid = require('./funcs/login_req.js')
+//importa funcao que pega o json e parsea
+const json_parser = require('./funcs/get_json_string.js')
 
+//Template engine para manipularmos os dados.
+const exphbs = require('express-handlebars')
 
 
 const rota_css = require('./rout_elements/css_elements.js')
@@ -23,6 +27,10 @@ var app = express();
 const path = require('path');
 const port = 3000
 app.listen(port, () => console.log(`Express app running on port ${port}!`));
+// define a extensão e a instância do handlebars com o modelo que será interpretado o código
+app.engine('hbs', exphbs.engine({extname: '.hbs',defaultLayout: "main"}));
+// define qual o template a ser utilizado
+app.set('view engine', 'hbs');
 
 // HTML files from template
 app.get('/', function(req, res) {
@@ -68,12 +76,14 @@ app.post('/login_request', function(req, res) {
         console.log(to_string_json)
 
        
-        req.session.username=req.fields.username;
+        
         if(req.fields.password == to_string_json.password){
+            req.session.username=req.fields.username;
             console.log(req.session.username)
             res.redirect("/home_page_login")
         }
         else{
+            req.session.username="NA"
             res.sendFile(path.join(__dirname, '/templates/template_boot/sign-in.html'));
                     }
         
@@ -82,8 +92,32 @@ app.post('/login_request', function(req, res) {
     
 });
 
-app.get('/home_page_login',  function(req, res) {
+app.get('/home_page_logindev',  function(req, res) {
     try {
+
+        const file_json = fs.readFile(path.join(__dirname, `/fake_db/users/${req.fields.username}.json`), "utf-8", (err, jsonString) => {
+            if (err) {
+              console.log("File read failed:", err);
+              res.send("Falha de autenticação")
+              return
+            }
+            console.log("File data:", jsonString);
+            const to_string_json = JSON.parse(jsonString)
+            console.log(to_string_json)
+    
+           
+            
+            if(req.fields.password == to_string_json.password){
+                req.session.username=req.fields.username;
+                console.log(req.session.username)
+                res.redirect("/home_page_login")
+            }
+            else{
+                req.session.username="NA"
+                res.sendFile(path.join(__dirname, '/templates/template_boot/sign-in.html'));
+                        }
+            
+          })
         const teste = req.session.username
       }
       catch(err) {
@@ -99,6 +133,22 @@ app.get('/home_page_login',  function(req, res) {
         }
 
     
+
+});
+
+app.get('/home_page_login',auth_mid,  function(req, res) {
+    const teste = json_parser(path.join(__dirname, `/fake_db/user_info/${req.session.username}.json`))
+    var projetos = []
+    if(teste != null){
+        console.log(teste.projetos)
+        for(let i = 0; i< teste.projetos.length; i++){
+            projetos.push(teste.projetos[i].nome)
+        }
+        console.log(projetos)
+    }
+    
+
+    res.render('profile_template', {name: req.session.username,  projetos})
 
 });
 

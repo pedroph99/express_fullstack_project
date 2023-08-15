@@ -1,0 +1,11 @@
+{
+    "cargo": "Diretor",
+    "projetos": [
+        {
+            "nome": "project_1"
+        },
+        {
+            "nome": "riomar"
+        }
+    ]
+}

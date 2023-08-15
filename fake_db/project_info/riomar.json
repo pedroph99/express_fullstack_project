@@ -1,0 +1,27 @@
+{
+    "encarregado": "pedro",
+    "materiais": [
+        {
+          "nome": "Concreto",
+          "quantidade": 30,
+          "preço": 50
+        },
+        {
+          "nome": "Pás",
+          "quantidade": 25,
+          "preço": 50
+        },
+        {
+          "nome": "Pedregulho",
+          "quantidade": 28,
+          "preço": 50
+        },
+        {
+            "nome": "Hastes",
+            "quantidade": 28,
+            "preço": 50
+          }
+
+      ]
+   
+}

@@ -6,7 +6,7 @@ function auth_middleware(req,res, next){
         if (err) {
           console.log("lascou aqui")
           console.log("File read failed:", err);
-          res.redirect("/home_page_login")
+          res.redirect("/login")
           return
         }
        
