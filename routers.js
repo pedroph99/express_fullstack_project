@@ -23,6 +23,7 @@ const exphbs = require('express-handlebars')
 
 const rota_css = require('./rout_elements/css_elements.js')
 const rota_js =  require('./rout_elements/js_elements.js')
+const rota_ajax = require('./rout_elements/ajax_elements')
 var app = express();
 const path = require('path');
 const port = 3000
@@ -135,7 +136,7 @@ app.get('/home_page_logindev',  function(req, res) {
     
 
 });
-
+//página a ser acessada pós login
 app.get('/home_page_login',auth_mid,  function(req, res) {
     const teste = json_parser(path.join(__dirname, `/fake_db/user_info/${req.session.username}.json`))
     var projetos = []
@@ -146,9 +147,30 @@ app.get('/home_page_login',auth_mid,  function(req, res) {
         }
         console.log(projetos)
     }
-    
+    var projects_bio = []
+    for(let i =0; i< projetos.length; i++){
+        const parsea_projeto = json_parser(path.join(__dirname, `/fake_db/project_info/${projetos[i]}.json`))
+        console.log("testeeeeeeeeeeee_projetos")
+        if(parsea_projeto != null){
+            projects_bio.push(parsea_projeto.bio)
+        }
+       
+    }
+    object_projects = []
+    for(let i =0; i<projetos.length; i++){
+        var teste_object = new Object
+        teste_object.nome = projetos[i]
+        teste_object.bio = projects_bio[i]
+        object_projects.push(teste_object)
+    }
+    console.log(object_projects)
 
-    res.render('profile_template', {name: req.session.username,  projetos})
+    res.render('profile_template', {name: req.session.username,  object_projects})
+
+});
+app.get('/testeajax',auth_mid,  function(req, res) {
+    res.render('ajax_teste')
+
 
 });
 
@@ -183,7 +205,7 @@ app.use('/elementoscss', rota_css)
 
 //route js elements from template
 app.use('/elementosjs', rota_js)
-
+app.use('/ajax', rota_ajax)
 
 
 
