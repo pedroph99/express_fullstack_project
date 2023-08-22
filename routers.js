@@ -46,9 +46,20 @@ app.get('/dashboard', function(req, res) {
 // Rota para login
 
 app.get('/login', function(req, res) {
-    res.sendFile(path.join(__dirname, '/templates/template_boot/sign-in.html'));
+    if (req.session){
+    if(req.session.username == 'NA'){
+        console.log('USUARIO INDEF')
+    }
+    else{
+        console.log(req.session)
+        console.log('testing')
+    }
+    
 
-});
+}
+res.render('signin.hbs');
+}
+);
 
 // creating 24 hours from milliseconds
 const oneDay = 1000 * 60 * 60 * 24;
@@ -68,9 +79,11 @@ app.post('/login_request', function(req, res) {
     console.log(req.fields)
     const file_json = fs.readFile(path.join(__dirname, `/fake_db/users/${req.fields.username}.json`), "utf-8", (err, jsonString) => {
         if (err) {
-          console.log("File read failed:", err);
-          res.send("Falha de autenticação")
-          return
+            req.session.username="NA"
+            console.log('erro aqui')
+            console.log(req.session)
+            res.render('signin.hbs', {warning: true})
+                    return;
         }
         console.log("File data:", jsonString);
         const to_string_json = JSON.parse(jsonString)
@@ -85,7 +98,7 @@ app.post('/login_request', function(req, res) {
         }
         else{
             req.session.username="NA"
-            res.sendFile(path.join(__dirname, '/templates/template_boot/sign-in.html'));
+            res.render('signin.hbs', {warning: true})
                     }
         
       })
@@ -169,6 +182,7 @@ app.get('/home_page_login',auth_mid,  function(req, res) {
 
 });
 app.get('/testeajax',auth_mid,  function(req, res) {
+    
     res.render('ajax_teste')
 
 
@@ -176,7 +190,16 @@ app.get('/testeajax',auth_mid,  function(req, res) {
 
 // Páginas de projetos. Essas páginas nos levará a projetos que existem através de parâmetros. É preciso ser encarregado.
 app.get('/projects/:name', auth_mid,  function(req, res) {
-    res.sendFile(path.join(__dirname, '/templates/template_boot/project_template.html'));
+    console.log('======================================')
+    console.log(req.url.split('/')[2])
+    console.log('======================================')
+    
+    const parsea_projeto = json_parser(path.join(__dirname, `/fake_db/project_info/${req.url.split('/')[2]}.json`))
+    if(parsea_projeto != null){
+        res.render('project_dashboard')
+        return
+    }
+    res.sendFile(path.join(__dirname, '/templates/template_boot/404.html'));
 
 });
 app.get('/projectapi/:nameproject', 
