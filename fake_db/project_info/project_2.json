@@ -1,7 +1,11 @@
 {
     "encarregado": "pedro",
+
     "bio": "Projeto realizado em parceria com o Hospital da restauração. Projeto de prédio",
+
+
     "status": "andamento",
+
 
     "orçamento": 1000000,
 
@@ -82,12 +86,14 @@
     
 
     ],
+
     "materiais": [
         {
           "nome": "cimento",
           "quantidade": 30,
           "preço": 50
         },
+
         {
           "nome": "Cal",
           "quantidade": 25,
@@ -98,6 +104,7 @@
           "quantidade": 28,
           "preço": 50
         },
+
         {
             "nome": "reboco",
             "quantidade": 28,
