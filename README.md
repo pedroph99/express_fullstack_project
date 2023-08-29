@@ -1,8 +1,7 @@
 # express_fullstack_project
 A fullstack project using VUE, bootstrap, Express and nodejs.
 
-##Para Rodar o Projeto
--> No Terminal
+* Para rodar o projeto:
 ~~~bash
 npm i
 ~~~
@@ -10,7 +9,7 @@ npm i
 node routers.js
 ~~~
 
--> No navegador
+ * Para acessar:
 ~~~bash
 localhost:3000/login
 ~~~
