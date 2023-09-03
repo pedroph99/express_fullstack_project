@@ -1,63 +1,70 @@
-<div id="teste">
+<div id="teste"> 
+
 
 </div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script>
     const split_url = window.location.href.split('/')
             const current_project = split_url[4]
-            
 
             var xmlhttp = new XMLHttpRequest();
     var url = `/projectapi/${current_project}`;
 
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            var info = JSON.parse(this.responseText);
-            myFunction(info);
+            var respostaApi= JSON.parse(this.responseText);
+            myFunction(respostaApi);
         }
     };
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
 
-    function myFunction(info) {
-        console.log(info)
-        const to_string = JSON.parse(info)
-        console.log(to_string.materiais.length)
-        var materiais = []
-            for(let i = 0 ; i<to_string.materiais.length; i++){
-               materiais.push( to_string.materiais[i].nome)
+    function myFunction(respostaApi) {
+        console.log(respostaApi)
+        const infoRiomar = JSON.parse(respostaApi)
+        console.log(infoRiomar.materiais.length)
+        var NomesMateriais = []
+        var QuantidadeMateriais = []
+        
+            for(let i = 0 ; i < infoRiomar.materiais.length; i++){
+              QuantidadeMateriais.push(infoRiomar.materiais[i].quantidade)
+              NomesMateriais.push(infoRiomar.materiais[i].nome)
             }
-            console.log(materiais)
+        console.log(QuantidadeMateriais);    
+        console.log(NomesMateriais);
 
-        //for(let i =0; i<info.materiais.size)
 
-
-        var options = {
+        var MateriasGrafico = {
           series: [{
-          data: [1000, 0, 448]
+          data: [QuantidadeMateriais[0], QuantidadeMateriais[1], QuantidadeMateriais[2],QuantidadeMateriais[3],]
         }],
           chart: {
-          type: 'bar',
+          type: 'line',
           height: 350
         },
         plotOptions: {
           bar: {
-            borderRadius: 4,
-            horizontal: true,
+            borderRadius: 20,
+            horizontal: false,
+  
           }
         },
         dataLabels: {
-          enabled: false
+          enabled: false,
         },
         xaxis: {
-          categories: materiais,
+          categories: NomesMateriais,
+          
         }
         };
 
-        var chart = new ApexCharts(document.querySelector("#teste"), options);
+
+
+        var chart = new ApexCharts(document.querySelector("#teste"), MateriasGrafico);
         chart.render();
+
+
     }
 
     </script>

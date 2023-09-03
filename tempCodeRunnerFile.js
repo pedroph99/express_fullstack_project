@@ -1,0 +1,1 @@
+ {nome: parsea_projeto.encarregado, current_project: req.url.split('/')[2]}
