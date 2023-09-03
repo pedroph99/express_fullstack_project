@@ -1,0 +1,63 @@
+<div id="teste">
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script>
+    const split_url = window.location.href.split('/')
+            const current_project = split_url[4]
+            
+
+            var xmlhttp = new XMLHttpRequest();
+    var url = `/projectapi/${current_project}`;
+
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var info = JSON.parse(this.responseText);
+            myFunction(info);
+        }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+
+    function myFunction(info) {
+        console.log(info)
+        const to_string = JSON.parse(info)
+        console.log(to_string.materiais.length)
+        var materiais = []
+            for(let i = 0 ; i<to_string.materiais.length; i++){
+               materiais.push( to_string.materiais[i].nome)
+            }
+            console.log(materiais)
+
+        //for(let i =0; i<info.materiais.size)
+
+
+        var options = {
+          series: [{
+          data: [1000, 0, 448]
+        }],
+          chart: {
+          type: 'bar',
+          height: 350
+        },
+        plotOptions: {
+          bar: {
+            borderRadius: 4,
+            horizontal: true,
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        xaxis: {
+          categories: materiais,
+        }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#teste"), options);
+        chart.render();
+    }
+
+    </script>
