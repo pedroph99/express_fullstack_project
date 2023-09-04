@@ -20,6 +20,8 @@ const json_parser = require('./funcs/get_json_string.js')
 //Template engine para manipularmos os dados.
 const exphbs = require('express-handlebars')
 
+const bodyParser = require('body-parser');
+
 
 const rota_css = require('./rout_elements/css_elements.js')
 const rota_js =  require('./rout_elements/js_elements.js')
@@ -32,7 +34,11 @@ app.listen(port, () => console.log(`Express app running on port ${port}!`));
 app.engine('hbs', exphbs.engine({extname: '.hbs',defaultLayout: "main"}));
 // define qual o template a ser utilizado
 app.set('view engine', 'hbs');
-
+const dataFolder = 'fake_db/project_info'; // Replace with your desired folder name
+//if (!fs.existsSync(dataFolder)) {
+//    fs.mkdirSync(dataFolder);
+//}
+app.use(bodyParser.json());
 // HTML files from template
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, '/templates/template_boot/home.html'));
@@ -227,9 +233,33 @@ app.get('/projectapi/:nameproject',
       })
     
     
-}
+});
 
-);
+//Salva novas obras
+app.post('/addobra',  (req, res) => {
+    console.log('==========')
+    console.log("post_test");
+console.log('==========')
+    try {
+
+      const obra = req.fields;
+    console.log(obra)
+
+      if (!obra.name) {
+        return res.status(400).json({ error: 'Name attribute is required' });
+      }
+      
+      const obraName = 'obra_teste'
+      const filename = path.join(__dirname,`/fake_db/users/obra_${obraName}.json`);
+  
+      fs.writeFileSync(filename, JSON.stringify(obra, null, 2));
+      res.send('Data_saved')
+      
+    } catch (error) {
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+  
 
 // route css elements from template
 app.use('/elementoscss', rota_css)
@@ -240,7 +270,3 @@ app.use('/ajax', rota_ajax)
 //session middleware
 
 app.use(formidable())
-
-
-
-
