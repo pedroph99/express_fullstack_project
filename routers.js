@@ -249,7 +249,7 @@ console.log('==========')
         return res.status(400).json({ error: 'Name attribute is required' });
       }
       
-      const obraName = 'obra_teste'
+      const obraName = obra.name
       const filename = path.join(__dirname,`/fake_db/users/obra_${obraName}.json`);
   
       fs.writeFileSync(filename, JSON.stringify(obra, null, 2));
