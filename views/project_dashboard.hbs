@@ -8,20 +8,7 @@
   const split_url = window.location.href.split('/');
   const current_project = split_url[4];
 
-<<<<<<< HEAD
-  var xmlhttp = new XMLHttpRequest();
-  var url = `/projectapi/${current_project}`;
-
-  xmlhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      var respostaApi = JSON.parse(this.responseText);
-      myFunction(respostaApi);
-    }
-  };
-  xmlhttp.open("GET", url, true);
-  xmlhttp.send();
-=======
-            var xmlhttp = new XMLHttpRequest();
+    var xmlhttp = new XMLHttpRequest();
     var url = `/projectapi/${current_project}`;
 
     xmlhttp.onreadystatechange = function() {
