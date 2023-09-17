@@ -6,8 +6,8 @@
     "data_inicio": "2023-01-15",
     "data_conclusão_prevista": "2023-06-30",
     "status_atual": "Em andamento",
-    "orçamento_inicial": 100000.0,
-    "orçamento_atual": 95000.0,
+    "orçamento_inicial": 300.0,
+    "orçamento_atual": 90.0,
     "prazos": [
       {
         "etapa": "Preparação do terreno",
