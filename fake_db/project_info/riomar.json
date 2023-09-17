@@ -1,28 +1,81 @@
 {
-    "encarregado": "pedro",
-     "bio": "Projeto realizado em parceria com o riomar. Projeto de loja",
-    "materiais": [
-        {
-          "nome": "Concreto",
-          "quantidade": 30,
-          "preço": 50
-        },
-        {
-          "nome": "Pás",
-          "quantidade": 25,
-          "preço": 50
-        },
-        {
-          "nome": "Pedregulho",
-          "quantidade": 28,
-          "preço": 50
-        },
-        {
-            "nome": "Hastes",
-            "quantidade": 28,
-            "preço": 50
-          }
-
-      ]
-   
+  "projeto": {
+    "nome": "Projeto de loja no Riomar",
+    "encarregado": "Pedro",
+    "bio": "Projeto realizado em parceria com o Riomar. Projeto de loja.",
+    "data_inicio": "2023-01-15",
+    "data_conclusão_prevista": "2023-06-30",
+    "status_atual": "Em andamento",
+    "orçamento_inicial": 100000.0,
+    "orçamento_atual": 95000.0,
+    "prazos": [
+      {
+        "etapa": "Preparação do terreno",
+        "data_início": "2023-02-01",
+        "data_conclusão_prevista": "2023-02-15",
+        "data_conclusão_real": "2023-02-20",
+        "cumprimento_prazo": "Atrasado"
+      },
+      {
+        "etapa": "Construção da estrutura",
+        "data_início": "2023-03-01",
+        "data_conclusão_prevista": "2023-04-15",
+        "data_conclusão_real": "2023-04-10",
+        "cumprimento_prazo": "Antecipado"
+      },
+      {
+        "etapa": "Acabamentos",
+        "data_início": "2023-04-20",
+        "data_conclusão_prevista": "2023-05-15",
+        "data_conclusão_real": "2023-05-25",
+        "cumprimento_prazo": "Atrasado"
+      }
+    ],
+    "variações": {
+      "custo": -5000.0,  
+      "tempo": 10  
+    },
+    "nível_conclusão": {
+      "etapa": "Acabamentos",
+      "percentual_concluído": 70
+    }
+  },
+  "materiais": [
+    {
+      "nome": "Concreto",
+      "quantidade": 30,
+      "preço_unitário": 50.0
+    },
+    {
+      "nome": "Pás",
+      "quantidade": 25,
+      "preço_unitário": 50.0
+    },
+    {
+      "nome": "Pedregulho",
+      "quantidade": 28,
+      "preço_unitário": 50.0
+    },
+    {
+      "nome": "Hastes",
+      "quantidade": 28,
+      "preço_unitário": 50.0
+    },
+    {
+      "nome": "Tijolo",
+      "quantidade": 58,
+      "preço_unitário": 50.0
+    }
+  ],
+  "custos": {
+    "mão_de_obra": 7500.0,
+    "equipamentos": 3000.0,
+    "outros_custos": 1500.0
+  },
+  "clientes": {
+    "nome_cliente": "Riomar",
+    "contato_cliente": "João da Silva",
+    "telefone_cliente": "(XX) XXXX-XXXX",
+    "email_cliente": "joao@riomar.com"
+  }
 }
