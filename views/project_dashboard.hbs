@@ -8,20 +8,7 @@
   const split_url = window.location.href.split('/');
   const current_project = split_url[4];
 
-<<<<<<< HEAD
-  var xmlhttp = new XMLHttpRequest();
-  var url = `/projectapi/${current_project}`;
-
-  xmlhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      var respostaApi = JSON.parse(this.responseText);
-      myFunction(respostaApi);
-    }
-  };
-  xmlhttp.open("GET", url, true);
-  xmlhttp.send();
-=======
-            var xmlhttp = new XMLHttpRequest();
+    var xmlhttp = new XMLHttpRequest();
     var url = `/projectapi/${current_project}`;
 
     xmlhttp.onreadystatechange = function() {
@@ -34,33 +21,30 @@
     xmlhttp.send();
 
     function myFunction(respostaApi) {
-        console.log(respostaApi)
-        const infoRiomar = JSON.parse(respostaApi)
-        console.log(infoRiomar.materiais.length)
-        var NomesMateriais = []
-        var QuantidadeMateriais = []
-        
-            for(let i = 0 ; i < infoRiomar.materiais.length; i++){
-              QuantidadeMateriais.push(infoRiomar.materiais[i].quantidade)
-              NomesMateriais.push(infoRiomar.materiais[i].nome)
-            }
-        console.log(QuantidadeMateriais);    
-        console.log(NomesMateriais);
+      console.log(respostaApi);
+      const infoProjeto = JSON.parse(respostaApi);
+      console.log(infoProjeto.materiais.length);
+      var NomesMateriais = [];
+      var QuantidadeMateriais = [];
 
+      for (let i = 0; i < infoProjeto.materiais.length; i++) {
+        QuantidadeMateriais.push(infoProjeto.materiais[i].quantidade);
+        NomesMateriais.push(infoProjeto.materiais[i].nome);
+      }
 
-        var MateriasGrafico = {
-          series: [{
-          data: [QuantidadeMateriais[0], QuantidadeMateriais[1], QuantidadeMateriais[2],QuantidadeMateriais[3],]
+      // Gráfico de Barras (Quantidades de Materiais)
+      var MateriasGrafico = {
+        series: [{
+          data: QuantidadeMateriais
         }],
-          chart: {
-          type: 'line',
+        chart: {
+          type: 'bar',
           height: 350
         },
         plotOptions: {
           bar: {
-            borderRadius: 20,
-            horizontal: false,
-  
+            borderRadius: 10,
+            horizontal: true,
           }
         },
         dataLabels: {
@@ -68,180 +52,138 @@
         },
         xaxis: {
           categories: NomesMateriais,
-          
         }
-        };
+      };
 
+      // Renderizar o Gráfico de Barras na div "grafico-barras"
+      var chart = new ApexCharts(document.querySelector("#grafico-barras"), MateriasGrafico);
+      chart.render();
 
-
-        var chart = new ApexCharts(document.querySelector("#teste"), MateriasGrafico);
-        chart.render();
->>>>>>> 35f150ff0fbe465df340755950e05e4def654078
-
-  function myFunction(respostaApi) {
-    console.log(respostaApi);
-    const infoProjeto = JSON.parse(respostaApi);
-    console.log(infoProjeto.materiais.length);
-    var NomesMateriais = [];
-    var QuantidadeMateriais = [];
-
-    for (let i = 0; i < infoProjeto.materiais.length; i++) {
-      QuantidadeMateriais.push(infoProjeto.materiais[i].quantidade);
-      NomesMateriais.push(infoProjeto.materiais[i].nome);
-    }
-
-    // Gráfico de Barras (Quantidades de Materiais)
-    var MateriasGrafico = {
-      series: [{
-        data: QuantidadeMateriais
-      }],
-      chart: {
-        type: 'bar',
-        height: 350
-      },
-      plotOptions: {
-        bar: {
-          borderRadius: 10,
-          horizontal: true,
-        }
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      xaxis: {
-        categories: NomesMateriais,
-      }
-    };
-
-    // Renderizar o Gráfico de Barras na div "grafico-barras"
-    var chart = new ApexCharts(document.querySelector("#grafico-barras"), MateriasGrafico);
-    chart.render();
-
-    // Gráfico Donut (Distribuição de Quantidades de Materiais)
-    var DistribuicaoMateriaisGrafico = {
-      series: QuantidadeMateriais,
-      chart: {
-        type: 'donut',
-        height: 350
-      },
-      labels: NomesMateriais,
-      colors: ['#00D8B6', '#008FFB', '#FEB019', '#FF4560', '#775DD0'],
-      dataLabels: {
-        enabled: true,
-        formatter: function (val) {
-          return val.toFixed(2) + "%";
-        }
-      },
-      title: {
-        text: 'Distribuição de Quantidades de Materiais'
-      }
-    };
-
-    // Renderizar o Gráfico Donut na div "grafico-donut"
-    var donutChart = new ApexCharts(document.querySelector("#grafico-donut"), DistribuicaoMateriaisGrafico);
-    donutChart.render();
-    // Gráfico de Área 1 (Orçamento Inicial)
-    var sparklineData1 = [100000.0];
-    var spark1 = {
-      chart: {
-        id: 'sparkline1',
-        group: 'sparklines',
-        type: 'area',
-        height: 160,
-        sparkline: {
-          enabled: true
+      // Gráfico Donut (Distribuição de Quantidades de Materiais)
+      var DistribuicaoMateriaisGrafico = {
+        series: QuantidadeMateriais,
+        chart: {
+          type: 'donut',
+          height: 350
         },
-      },
-      stroke: {
-        curve: 'straight'
-      },
-      fill: {
-        opacity: 1,
-      },
-      series: [{
-        name: 'Orçamento Inicial',
-        data: sparklineData1
-      }],
-      labels: ['Orçamento Inicial'],
-      yaxis: {
-        min: 0
-      },
-      xaxis: {
-        type: 'category',
-      },
-      colors: ['#DCE6EC'],
-      title: {
-        text: `$${sparklineData1[0].toFixed(2)}`,
-        offsetX: 30,
-        style: {
-          fontSize: '24px',
-          cssClass: 'apexcharts-yaxis-title'
-        }
-      },
-      subtitle: {
-        text: 'Orçamento Inicial',
-        offsetX: 30,
-        style: {
-          fontSize: '14px',
-          cssClass: 'apexcharts-yaxis-title'
-        }
-      }
-    };
-
-    // Renderizar o Gráfico de Área 1 na div "sparkline1"
-    var chartSpark1 = new ApexCharts(document.querySelector("#sparkline1"), spark1);
-    chartSpark1.render();
-
-    // Gráfico de Área 2 (Orçamento Atual)
-    var sparklineData2 = [95000.0];
-    var spark2 = {
-      chart: {
-        id: 'sparkline2',
-        group: 'sparklines',
-        type: 'area',
-        height: 160,
-        sparkline: {
-          enabled: true
+        labels: NomesMateriais,
+        colors: ['#00D8B6', '#008FFB', '#FEB019', '#FF4560', '#775DD0'],
+        dataLabels: {
+          enabled: true,
+          formatter: function (val) {
+            return val.toFixed(2) + "%";
+          }
         },
-      },
-      stroke: {
-        curve: 'straight'
-      },
-      fill: {
-        opacity: 1,
-      },
-      series: [{
-        name: 'Orçamento Atual',
-        data: sparklineData2
-      }],
-      labels: ['Orçamento Atual'],
-      yaxis: {
-        min: 0
-      },
-      xaxis: {
-        type: 'category',
-      },
-      colors: ['#DCE6EC'],
-      title: {
-        text: `$${sparklineData2[0].toFixed(2)}`,
-        offsetX: 30,
-        style: {
-          fontSize: '24px',
-          cssClass: 'apexcharts-yaxis-title'
+        title: {
+          text: 'Distribuição de Quantidades de Materiais'
         }
-      },
-      subtitle: {
-        text: 'Orçamento Atual',
-        offsetX: 30,
-        style: {
-          fontSize: '14px',
-          cssClass: 'apexcharts-yaxis-title'
-        }
-      }
-    };
+      };
 
-    // Renderizar o Gráfico de Área 2 na div "sparkline2"
-    var chartSpark2 = new ApexCharts(document.querySelector("#sparkline2"), spark2);
-    chartSpark2.render();
+      // Renderizar o Gráfico Donut na div "grafico-donut"
+      var donutChart = new ApexCharts(document.querySelector("#grafico-donut"), DistribuicaoMateriaisGrafico);
+      donutChart.render();
+      // Gráfico de Área 1 (Orçamento Inicial)
+      var sparklineData1 = [100000.0];
+      var spark1 = {
+        chart: {
+          id: 'sparkline1',
+          group: 'sparklines',
+          type: 'area',
+          height: 160,
+          sparkline: {
+            enabled: true
+          },
+        },
+        stroke: {
+          curve: 'straight'
+        },
+        fill: {
+          opacity: 1,
+        },
+        series: [{
+          name: 'Orçamento Inicial',
+          data: sparklineData1
+        }],
+        labels: ['Orçamento Inicial'],
+        yaxis: {
+          min: 0
+        },
+        xaxis: {
+          type: 'category',
+        },
+        colors: ['#DCE6EC'],
+        title: {
+          text: `$${sparklineData1[0].toFixed(2)}`,
+          offsetX: 30,
+          style: {
+            fontSize: '24px',
+            cssClass: 'apexcharts-yaxis-title'
+          }
+        },
+        subtitle: {
+          text: 'Orçamento Inicial',
+          offsetX: 30,
+          style: {
+            fontSize: '14px',
+            cssClass: 'apexcharts-yaxis-title'
+          }
+        }
+      };
+
+      // Renderizar o Gráfico de Área 1 na div "sparkline1"
+      var chartSpark1 = new ApexCharts(document.querySelector("#sparkline1"), spark1);
+      chartSpark1.render();
+
+      // Gráfico de Área 2 (Orçamento Atual)
+      var sparklineData2 = [95000.0];
+      var spark2 = {
+        chart: {
+          id: 'sparkline2',
+          group: 'sparklines',
+          type: 'area',
+          height: 160,
+          sparkline: {
+            enabled: true
+          },
+        },
+        stroke: {
+          curve: 'straight'
+        },
+        fill: {
+          opacity: 1,
+        },
+        series: [{
+          name: 'Orçamento Atual',
+          data: sparklineData2
+        }],
+        labels: ['Orçamento Atual'],
+        yaxis: {
+          min: 0
+        },
+        xaxis: {
+          type: 'category',
+        },
+        colors: ['#DCE6EC'],
+        title: {
+          text: `$${sparklineData2[0].toFixed(2)}`,
+          offsetX: 30,
+          style: {
+            fontSize: '24px',
+            cssClass: 'apexcharts-yaxis-title'
+          }
+        },
+        subtitle: {
+          text: 'Orçamento Atual',
+          offsetX: 30,
+          style: {
+            fontSize: '14px',
+            cssClass: 'apexcharts-yaxis-title'
+          }
+        }
+      };
+
+      // Renderizar o Gráfico de Área 2 na div "sparkline2"
+      var chartSpark2 = new ApexCharts(document.querySelector("#sparkline2"), spark2);
+      chartSpark2.render();
   }
 </script>
