@@ -8,6 +8,7 @@
   const split_url = window.location.href.split('/');
   const current_project = split_url[4];
 
+<<<<<<< HEAD
   var xmlhttp = new XMLHttpRequest();
   var url = `/projectapi/${current_project}`;
 
@@ -19,6 +20,63 @@
   };
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
+=======
+            var xmlhttp = new XMLHttpRequest();
+    var url = `/projectapi/${current_project}`;
+
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var respostaApi= JSON.parse(this.responseText);
+            myFunction(respostaApi);
+        }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+
+    function myFunction(respostaApi) {
+        console.log(respostaApi)
+        const infoRiomar = JSON.parse(respostaApi)
+        console.log(infoRiomar.materiais.length)
+        var NomesMateriais = []
+        var QuantidadeMateriais = []
+        
+            for(let i = 0 ; i < infoRiomar.materiais.length; i++){
+              QuantidadeMateriais.push(infoRiomar.materiais[i].quantidade)
+              NomesMateriais.push(infoRiomar.materiais[i].nome)
+            }
+        console.log(QuantidadeMateriais);    
+        console.log(NomesMateriais);
+
+
+        var MateriasGrafico = {
+          series: [{
+          data: [QuantidadeMateriais[0], QuantidadeMateriais[1], QuantidadeMateriais[2],QuantidadeMateriais[3],]
+        }],
+          chart: {
+          type: 'line',
+          height: 350
+        },
+        plotOptions: {
+          bar: {
+            borderRadius: 20,
+            horizontal: false,
+  
+          }
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        xaxis: {
+          categories: NomesMateriais,
+          
+        }
+        };
+
+
+
+        var chart = new ApexCharts(document.querySelector("#teste"), MateriasGrafico);
+        chart.render();
+>>>>>>> 35f150ff0fbe465df340755950e05e4def654078
 
   function myFunction(respostaApi) {
     console.log(respostaApi);
