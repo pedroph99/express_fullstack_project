@@ -3,13 +3,13 @@
     
     <div id="mensagem ranking">
       <h2>aqui estara o resultado do ranking</h2>
-      <h>aqui pode ser alguma descrição <br>bla bla bla. 
-      </h>
+      <h>aqui estara alguma descrição <br>bla bla bla.</h>
       </div>
      
       <div class="grafico2" id="GraficoDeColunas">
       
       <h2>Informações do Usuário</h2>
+      <h> Nota por parâmetro <br> <br> </h>
     </div>  
 
     </div>
@@ -20,20 +20,30 @@
 
     </div>
     <div class="grafico" id="GraficoDeLinhas">
-      <h2>isso aqui é um teste</h2>
+      <h2>Horas Extras Realizadas</h2>
     </div>
   
     <style>
 
      .grafico2 {
       text-align: center; /* Alinha o texto no centro horizontalmente */
-      height: 100vh; /* Define a altura da div para ocupar toda a altura da tela */
+      height: 75vh; /* Define a altura da div para ocupar toda a altura da tela */
       }
       .grafico{
         float:right;
         width:45%;
-        border: 1px solid black;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 85vh;
       }
+
+      .GraficoDeLinhas {
+        text-align: center;
+      }
+
       .espaço{
         float:left;
         width:45%;
@@ -102,7 +112,7 @@
             },
             offsetY: -20,
             style: {
-              fontSize: '12px',
+              fontSize: '14px',
               colors: ["#304758"]
             }
           },
@@ -157,7 +167,7 @@
         return a + b;
         }, 0);                //criando o rank
 
-        var ranking = ''
+        var ranking = '';
         if (somaValores >= 90) {
           ranking = 'S (Superior)';
         } else if (somaValores >= 80) {
@@ -174,43 +184,43 @@
 
         var mensagemRankingDiv = document.getElementById('mensagem ranking');
         mensagemRankingDiv.innerHTML = '<h2> Sua classificação é:</h2><h><br>' + ranking + '<br><br>';
+        
 
         //grafico de linhas
         var linhas = {
-            series: [{
-              name: "Desktops",
-              data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
-          }],
-            chart: {
-            height: 350,
-            type: 'line',
-            zoom: {
-              enabled: false
-            }
-          },
-          dataLabels: {
-            enabled: false
-          },
-          stroke: {
-            curve: 'straight'
-          },
-          title: {
-            text: 'Product Trends by Month',
-            align: 'left'
-          },
-          grid: {
-            row: {
-              colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-              opacity: 0.5
-            },
-          },
-          xaxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+        series: [
+          {
+            name: "Horas Extras",
+            data: Object.values(DadosUsuario.horas_extras)
           }
-          };
+        ],
+        chart: {
+          height: 350,
+          type: 'line',
+          zoom: {
+            enabled: false
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'smooth'
+        },
+        grid: {
+          row: {
+            colors: ['#f3f3f3', 'transparent'],
+            opacity: 0.5
+          },
+        },
+        xaxis: {
+          categories: Object.keys(DadosUsuario.horas_extras)
+        }
+      };
 
-          var chart = new ApexCharts(document.querySelector("#GraficoDeLinhas"), linhas);
-          chart.render();
+      var chartLinhas = new ApexCharts(document.querySelector("#GraficoDeLinhas"), linhas);
+      chartLinhas.render();
+
       };
 
 
