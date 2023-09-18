@@ -230,7 +230,23 @@ app.get('/projectapi/:nameproject',
 }
 
 );
+app.get('/userapi', 
+ function(req, res) {
+    const file_json = fs.readFile(path.join(__dirname, `/fake_db/user_info/${req.session.username}.json`), "utf-8", (err, jsonString) => {
+        if (err) {
+          console.log("File read failed:", err);
+          res.send("Falha de autenticação")
+          return
+        }
+        console.log("File data:", jsonString);
+        const to_string_json = JSON.parse(jsonString)
+        console.log(to_string_json)
 
+       
+        res.json(jsonString)
+        
+      })
+    });
 // route css elements from template
 app.use('/elementoscss', rota_css)
 
