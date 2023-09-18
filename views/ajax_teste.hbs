@@ -1,56 +1,207 @@
 <div class="row" id="projetos">
-    <div id="chart">
+    
+    
+    <div id="mensagem ranking">
+      <h2>aqui estara o resultado do ranking</h2>
+      <h>aqui pode ser alguma descrição <br>bla bla bla. 
+      </h>
+    
+    </div>
+    <div class="espaço" id="lista de projetos">
+	
+	    <h2> aqui ficarão as informações dos projetos </h2>
+      <h> exemplos:<br>projeto 1<br>projeto 2<br> projeto3</h>
 
     </div>
+    <div class="grafico" id="GraficoDeLinhas">
+      <h2>isso aqui é um teste</h2>
+    </div>
     
-    <script>
-        
+    <div class="grafico2" id="GraficoDeColunas">
+      
+      <h1>aqui um gráfico de colunas com informações</h1>
+    </div>  
+  
+    
 
-var options = {
-          series: [{
-          name: 'PRODUCT A',
-          data: [44, 55, 41, 67, 22, 43, 21, 49]
-        }, {
-          name: 'PRODUCT B',
-          data: [13, 23, 20, 8, 13, 27, 33, 12]
-        }, {
-          name: 'PRODUCT C',
-          data: [11, 17, 15, 15, 21, 14, 15, 13]
-        }],
-          chart: {
-          type: 'bar',
-          height: 350,
-          stacked: true,
-          stackType: '100%'
-        },
-        responsive: [{
-          breakpoint: 480,
-          options: {
-            legend: {
-              position: 'bottom',
-              offsetX: -10,
-              offsetY: 0
+    <style>
+
+      .grafico{
+        float:right;
+        width:45%;
+        border: 1px solid black;
+      }
+      .espaço{
+        float:left;
+        width:45%;
+      }
+
+    </style>
+
+    <script>
+
+      var url = '/userapi/'; //url das informações do usuario
+      
+      var xmlhttp = new XMLHttpRequest();         
+      xmlhttp.open('GET',url, true);              //config. da requisição XMLHTTP
+
+      xmlhttp.onreadystatechange = function() {    //função que vai checar se ta tudo certo e se estiver coleta e processa os dados
+        if (this.readyState == 4 && this.status == 200) {
+          var DadosColetados = JSON.parse(this.responseText);
+          processamento(DadosColetados);                 //chamada da função que vai processar os dados coletados (declarada mais a frente no código)
+        }
+      };
+      xmlhttp.send();                                      //envio dos dados requisitados
+
+      function processamento(dados){
+        const DadosUsuario = JSON.parse(dados);
+        console.log(DadosUsuario);
+        const quantidadeItensNoRanking = Object.keys(DadosUsuario.ranking).length;
+        console.log(quantidadeItensNoRanking);
+        
+        var nomesItensRanking = [];
+        var valoresItensRanking = [];
+
+        // Adiciona as chaves individualmente ao array nomesItensRanking
+        Object.keys(DadosUsuario.ranking).forEach(function(chave) {
+        nomesItensRanking.push(chave);
+        });
+
+        // Adiciona os valores ao array valoresItensRanking
+        valoresItensRanking = Object.values(DadosUsuario.ranking);  
+        
+        console.log(nomesItensRanking);
+        console.log(valoresItensRanking);
+      
+
+
+        //grafico de colunas
+        var colunas = {
+            series: [{
+            name: 'nota',
+            data: valoresItensRanking.slice(0, 9)
+          }],
+            chart: {
+            height: 350,
+            type: 'bar',
+          },
+          plotOptions: {
+            bar: {
+              borderRadius: 10,
+              dataLabels: {
+                position: 'top', // top, center, bottom
+              },
+            }
+          },
+          dataLabels: {
+            enabled: true,
+            formatter: function (val) {
+              return val;
+            },
+            offsetY: -20,
+            style: {
+              fontSize: '12px',
+              colors: ["#304758"]
+            }
+          },
+          
+          xaxis: {
+            categories: nomesItensRanking.slice(0, 9),
+            position: 'top',
+            axisBorder: {
+              show: false
+            },
+            axisTicks: {
+              show: false
+            },
+            crosshairs: {
+              fill: {
+                type: 'gradient',
+                gradient: {
+                  colorFrom: '#D8E3F0',
+                  colorTo: '#BED1E6',
+                  stops: [0, 100],
+                  opacityFrom: 0.4,
+                  opacityTo: 0.5,
+                }
+              }
+            },
+            tooltip: {
+              enabled: true,
+            }
+          },
+          yaxis: {
+            max: 10,
+            axisBorder: {
+              show: false
+            },
+            axisTicks: {
+              show: false,
+            },
+            labels: {
+              show: false,
+              formatter: function (val) {
+                return val ;
+              }
+            }
+          
+          },
+          title: {
+            text: 'Informações gerais',
+            floating: true,
+            offsetY: 330,
+            align: 'center',
+            style: {
+              color: '#444'
             }
           }
-        }],
-        xaxis: {
-          categories: ['2011 Q1', '2011 Q2', '2011 Q3', '2011 Q4', '2012 Q1', '2012 Q2',
-            '2012 Q3', '2012 Q4'
-          ],
-        },
-        fill: {
-          opacity: 1
-        },
-        legend: {
-          position: 'right',
-          offsetX: 0,
-          offsetY: 50
-        },
-        };
+          };
 
-        var chart = new ApexCharts(document.querySelector("#chart"), options);
-        chart.render();
+          var chart = new ApexCharts(document.querySelector("#GraficoDeColunas"), colunas);
+          chart.render();
 
+        
+        //grafico de linhas
+        var linhas = {
+            series: [{
+              name: "Desktops",
+              data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+          }],
+            chart: {
+            height: 350,
+            type: 'line',
+            zoom: {
+              enabled: false
+            }
+          },
+          dataLabels: {
+            enabled: false
+          },
+          stroke: {
+            curve: 'straight'
+          },
+          title: {
+            text: 'Product Trends by Month',
+            align: 'left'
+          },
+          grid: {
+            row: {
+              colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+              opacity: 0.5
+            },
+          },
+          xaxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+          }
+          };
+
+          var chart = new ApexCharts(document.querySelector("#GraficoDeLinhas"), linhas);
+          chart.render();
+      };
+
+
+        
+        
     </script>
    
     </div>
