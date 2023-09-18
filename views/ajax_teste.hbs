@@ -5,7 +5,13 @@
       <h2>aqui estara o resultado do ranking</h2>
       <h>aqui pode ser alguma descrição <br>bla bla bla. 
       </h>
-    
+      </div>
+     
+      <div class="grafico2" id="GraficoDeColunas">
+      
+      <h2>Informações do Usuário</h2>
+    </div>  
+
     </div>
     <div class="espaço" id="lista de projetos">
 	
@@ -16,16 +22,13 @@
     <div class="grafico" id="GraficoDeLinhas">
       <h2>isso aqui é um teste</h2>
     </div>
-    
-    <div class="grafico2" id="GraficoDeColunas">
-      
-      <h1>aqui um gráfico de colunas com informações</h1>
-    </div>  
   
-    
-
     <style>
 
+     .grafico2 {
+      text-align: center; /* Alinha o texto no centro horizontalmente */
+      height: 100vh; /* Define a altura da div para ocupar toda a altura da tela */
+      }
       .grafico{
         float:right;
         width:45%;
@@ -35,6 +38,7 @@
         float:left;
         width:45%;
       }
+      
 
     </style>
 
@@ -56,11 +60,11 @@
       function processamento(dados){
         const DadosUsuario = JSON.parse(dados);
         console.log(DadosUsuario);
-        const quantidadeItensNoRanking = Object.keys(DadosUsuario.ranking).length;
-        console.log(quantidadeItensNoRanking);
+        const quantidadeItensNoRanking = Object.keys(DadosUsuario.ranking).length; //criando uma constante e colocando a quantidade de chaves do ranking
+        console.log(quantidadeItensNoRanking); 
         
-        var nomesItensRanking = [];
-        var valoresItensRanking = [];
+        var nomesItensRanking = []; //nome das chaves
+        var valoresItensRanking = []; //notas
 
         // Adiciona as chaves individualmente ao array nomesItensRanking
         Object.keys(DadosUsuario.ranking).forEach(function(chave) {
@@ -72,9 +76,7 @@
         
         console.log(nomesItensRanking);
         console.log(valoresItensRanking);
-      
-
-
+    
         //grafico de colunas
         var colunas = {
             series: [{
@@ -146,21 +148,33 @@
             }
           
           },
-          title: {
-            text: 'Informações gerais',
-            floating: true,
-            offsetY: 330,
-            align: 'center',
-            style: {
-              color: '#444'
-            }
-          }
           };
 
           var chart = new ApexCharts(document.querySelector("#GraficoDeColunas"), colunas);
           chart.render();
 
-        
+        var somaValores = valoresItensRanking.slice(0, 9).reduce(function (a, b) {
+        return a + b;
+        }, 0);                //criando o rank
+
+        var ranking = ''
+        if (somaValores >= 90) {
+          ranking = 'S (Superior)';
+        } else if (somaValores >= 80) {
+          ranking = 'A (Excelente)';
+        } else if (somaValores >= 70) {
+          ranking = 'B (Bom)';
+        } else if (somaValores >= 60) {
+          ranking = 'C (Satisfatório)';
+        } else if (somaValores >= 50) {
+          ranking = 'D (Abaixo da Média)';
+        } else {
+          ranking = 'E (Insatisfatório)';
+        }
+
+        var mensagemRankingDiv = document.getElementById('mensagem ranking');
+        mensagemRankingDiv.innerHTML = '<h2> Sua classificação é:</h2><h><br>' + ranking + '<br><br>';
+
         //grafico de linhas
         var linhas = {
             series: [{
