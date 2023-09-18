@@ -1,11 +1,41 @@
 <div class="row" id="projetos">
-    <div id="chart">
-	<h> olha o gustavo lima aí ó </h>
-	<h1> olha o gustavo lima aí ó </h1>
-	<h2> olha o gustavo lima aí ó </h2>
-	<h3> olha o gustavo lima aí ó </h3>
+    
+    
+    <div id="mensagem ranking">
+      <h2>aqui estara o resultado do ranking</h2>
+      <h>aqui pode ser alguma descrição <br>bla bla bla. 
+      </h>
+    
+    </div>
+    <div class="espaço" id="lista de projetos">
+	
+	    <h1> aqui ficarão as informações dos projetos </h1>
+
+    </div>
+    <div class="grafico" id="GraficoDeColunas">
+      
+      <h1>aqui um gráfico de colunas com informações</h1>
+    
+    </div>
+    <div class="grafico" id="GraficoDeLinhas">
+      <h2>isso aqui é um teste</h2>
     </div>
     
+
+    <style>
+
+      .grafico{
+        float:right;
+        width:45%;
+        border: 1px solid black;
+      }
+      .espaço{
+        float:left;
+        width:45%;
+      }
+
+    </style>
+
     <script>
 
       var url = '/userapi/'; //url das informações do usuario
@@ -15,16 +45,157 @@
 
       xmlhttp.onreadystatechange = function() {    //função que vai checar se ta tudo certo e se estiver coleta e processa os dados
         if (this.readyState == 4 && this.status == 200) {
-          var RespostaColetada = JSON.parse(this.responseText);
-          processamento(RespostaColetada);                 //chamada da função que vai processar os dados coletados (declarada mais a frente no código)
+          var DadosColetados = JSON.parse(this.responseText);
+          processamento(DadosColetados);                 //chamada da função que vai processar os dados coletados (declarada mais a frente no código)
         }
       };
       xmlhttp.send();                                      //envio dos dados requisitados
 
       function processamento(dados){
-        var DadosUsuario = JSON.parse(dados);
-        console.log(dados);
-      }
+        const DadosUsuario = JSON.parse(dados);
+        console.log(DadosUsuario);
+        const quantidadeItensNoRanking = Object.keys(DadosUsuario.ranking).length;
+        console.log(quantidadeItensNoRanking);
+        
+        var nomesItensRanking = [];
+        var valoresItensRanking = [];
+
+        // Adiciona as chaves individualmente ao array nomesItensRanking
+        Object.keys(DadosUsuario.ranking).forEach(function(chave) {
+        nomesItensRanking.push(chave);
+        });
+
+        // Adiciona os valores ao array valoresItensRanking
+        valoresItensRanking = Object.values(DadosUsuario.ranking);  
+        
+        console.log(nomesItensRanking);
+        console.log(valoresItensRanking);
+      
+
+
+        //grafico de colunas
+        var colunas = {
+            series: [{
+            name: 'nota',
+            data: valoresItensRanking.slice(0, 9)
+          }],
+            chart: {
+            height: 350,
+            type: 'bar',
+          },
+          plotOptions: {
+            bar: {
+              borderRadius: 10,
+              dataLabels: {
+                position: 'top', // top, center, bottom
+              },
+            }
+          },
+          dataLabels: {
+            enabled: true,
+            formatter: function (val) {
+              return val;
+            },
+            offsetY: -20,
+            style: {
+              fontSize: '12px',
+              colors: ["#304758"]
+            }
+          },
+          
+          xaxis: {
+            categories: nomesItensRanking.slice(0, 9),
+            position: 'top',
+            axisBorder: {
+              show: false
+            },
+            axisTicks: {
+              show: false
+            },
+            crosshairs: {
+              fill: {
+                type: 'gradient',
+                gradient: {
+                  colorFrom: '#D8E3F0',
+                  colorTo: '#BED1E6',
+                  stops: [0, 100],
+                  opacityFrom: 0.4,
+                  opacityTo: 0.5,
+                }
+              }
+            },
+            tooltip: {
+              enabled: true,
+            }
+          },
+          yaxis: {
+            max: 10,
+            axisBorder: {
+              show: false
+            },
+            axisTicks: {
+              show: false,
+            },
+            labels: {
+              show: false,
+              formatter: function (val) {
+                return val ;
+              }
+            }
+          
+          },
+          title: {
+            text: 'Informações gerais',
+            floating: true,
+            offsetY: 330,
+            align: 'center',
+            style: {
+              color: '#444'
+            }
+          }
+          };
+
+          var chart = new ApexCharts(document.querySelector("#GraficoDeColunas"), colunas);
+          chart.render();
+
+        
+        //grafico de linhas
+        var linhas = {
+            series: [{
+              name: "Desktops",
+              data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+          }],
+            chart: {
+            height: 350,
+            type: 'line',
+            zoom: {
+              enabled: false
+            }
+          },
+          dataLabels: {
+            enabled: false
+          },
+          stroke: {
+            curve: 'straight'
+          },
+          title: {
+            text: 'Product Trends by Month',
+            align: 'left'
+          },
+          grid: {
+            row: {
+              colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+              opacity: 0.5
+            },
+          },
+          xaxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+          }
+          };
+
+          var chart = new ApexCharts(document.querySelector("#GraficoDeLinhas"), linhas);
+          chart.render();
+      };
 
 
         
