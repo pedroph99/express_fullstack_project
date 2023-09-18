@@ -1,109 +1,98 @@
 {
-    "encarregado": "pedro",
-    "bio": "Projeto realizado em parceria com o Hospital da restauração. Projeto de prédio",
-    "status": "andamento",
-
-    "orçamento": 1000000,
-
-
-    "gasto total": 10000,
-
-
-    "localização": "Estrada do bonsuceso 467",
-
-
-    "data_prevista": "20/09/2023",
-
-
-    "gasto_funcionarios":
-    [{
-      "salario_engenheiros": 20000
-    },
-    {
-      "salario_peoes": 100000
-    },
-    {
-      "salario_projetistas": 20000
-    }
-  
-  ],
+  "projeto": {
+    "nome": "Projeto XYZ",
+    "encarregado": "Maria",
+    "bio": "Projeto XYZ para desenvolvimento de uma nova área de lazer.",
+    "data_inicio": "2023-02-10",
+    "data_conclusão_prevista": "2023-08-30",
+    "status_atual": "Em andamento",
+    "orçamento_inicial": 20000.0,
+    "orçamento_atual": 500.0,
     "prazos": [
       {
-        "nome": "Projeto do telhado",
-        "prazo_max": "19/10/2023",
-        "status": "concluido"
+        "etapa": "Planejamento",
+        "data_início": "2023-03-01",
+        "data_conclusão_prevista": "2023-03-20",
+        "data_conclusão_real": "2023-03-18",
+        "cumprimento_prazo": "Antecipado",
+        "custo_planejado": 2000.0,
+        "tempo_planejado": 20,
+        "custo_atual": 1900.0,
+        "tempo_atual": 18,
+        "variação_custo": -100.0,
+        "variação_tempo": -2
       },
       {
-        "nome": "Projeto do telhado",
-        "prazo_max": "19/08/2023",
-        "status": "andamento"
+        "etapa": "Execução da obra",
+        "data_início": "2023-04-10",
+        "data_conclusão_prevista": "2023-07-30",
+        "data_conclusão_real": "2023-08-04",
+        "cumprimento_prazo": "Atrasado",
+        "custo_planejado": 4000.0,
+        "tempo_planejado": 90,
+        "custo_atual": 4000.0,
+        "tempo_atual": 95,
+        "variação_custo": 0.0,
+        "variação_tempo": 5
+      },
+      {
+        "etapa": "Inspeção e Aprovação",
+        "data_início": "2023-08-05",
+        "data_conclusão_prevista": "2023-08-10",
+        "data_conclusão_real": "2023-08-15",
+        "cumprimento_prazo": "Atrasado",
+        "custo_planejado": 800.0,
+        "tempo_planejado": 5,
+        "custo_atual": 850.0,
+        "tempo_atual": 10,
+        "variação_custo": 50.0,
+        "variação_tempo": 5
+      },
+      {
+        "etapa": "Finalização",
+        "data_início": "2023-08-15",
+        "data_conclusão_prevista": "2023-08-30",
+        "data_conclusão_real": null,
+        "cumprimento_prazo": "Em andamento",
+        "custo_planejado": 1500.0,
+        "tempo_planejado": 15,
+        "custo_atual": 1400,
+        "tempo_atual": null,
+        "variação_custo": 100,
+        "variação_tempo": null
       }
-      
     ],
-    "retrabalhos":[
-      {
-        "ocorrido": "retrabalho no projeto do telhado (não sabiam projeção cotada)",
-        "tempo_gasto": 72
-      },
-      {
-        "ocorrido": "atraso na entrega do cimento",
-        "tempo_gasto": 10
-
-      }
-    ],
-    "material_gasto": [
-      {
-        "nome": "cimento",
-        "quantidade_estocada": 30
-       
-      },
-      {
-        "nome": "Cal",
-        "quantidade_estocada": 30
-       
-      },
-      {
-        "nome": "Pedra",
-        "quantidade_estocada": 30
-       
-      }
-
-    ],
-    
-    "acidentes" : [
-      {"ocorrido": "Funcionario desmaiou",
-    "data_ocorrido": "12/08/2023",
-    "seriedade": "Baixa"},
-    
-      {"ocorrido": "Funcionario caiu da escada",
-    "data_ocorrido": "15/08/2023",
-    "seriedade": "Alta"}
-    
-    
-
-    ],
-    "materiais": [
-        {
-          "nome": "cimento",
-          "quantidade": 30,
-          "preço": 50
-        },
-        {
-          "nome": "Cal",
-          "quantidade": 25,
-          "preço": 50
-        },
-        {
-          "nome": "Pedra",
-          "quantidade": 28,
-          "preço": 50
-        },
-        {
-            "nome": "reboco",
-            "quantidade": 28,
-            "preço": 50
-          }
-
-      ]
-   
+    "nível_conclusão": {
+      "etapa": "Finalização",
+      "percentual_concluído": 85
+    }
+  },
+  "materiais": [
+    {
+      "nome": "Tijolo",
+      "quantidade": 500,
+      "preço_unitário": 5.0
+    },
+    {
+      "nome": "Cimento",
+      "quantidade": 400,
+      "preço_unitário": 4.5
+    },
+    {
+      "nome": "Areia",
+      "quantidade": 350,
+      "preço_unitário": 3.0
+    }
+  ],
+  "custos": {
+    "mão_de_obra": 9000.0,
+    "equipamentos": 4000.0,
+    "outros_custos": 2500.0
+  },
+  "clientes": {
+    "nome_cliente": "Empresa ABC",
+    "contato_cliente": "Ana Oliveira",
+    "telefone_cliente": "(XX) XXXX-XXXX",
+    "email_cliente": "ana@empresaabc.com"
+  }
 }

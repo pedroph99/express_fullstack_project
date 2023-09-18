@@ -4,40 +4,55 @@
     "encarregado": "Pedro",
     "bio": "Projeto realizado em parceria com o Riomar. Projeto de loja.",
     "data_inicio": "2023-01-15",
-    "data_conclusão_prevista": "2023-06-30",
-    "status_atual": "Em andamento",
-    "orçamento_inicial": 300.0,
-    "orçamento_atual": 90.0,
+    "data_conclusão": "2023-05-20",
+    "status_atual": "Finalizada",
+    "orçamento_inicial": 25000.0,
+    "orçamento_atual": 13000.0,
     "prazos": [
       {
         "etapa": "Preparação do terreno",
         "data_início": "2023-02-01",
         "data_conclusão_prevista": "2023-02-15",
         "data_conclusão_real": "2023-02-20",
-        "cumprimento_prazo": "Atrasado"
+        "cumprimento_prazo": "Atrasado",
+        "custo_planejado": 1500.0,
+        "tempo_planejado": 15,
+        "custo_atual": 1800.0,
+        "tempo_atual": 20,
+        "variação_custo": 300.0,
+        "variação_tempo": 5
       },
       {
         "etapa": "Construção da estrutura",
         "data_início": "2023-03-01",
         "data_conclusão_prevista": "2023-04-15",
         "data_conclusão_real": "2023-04-10",
-        "cumprimento_prazo": "Antecipado"
+        "cumprimento_prazo": "Antecipado",
+        "custo_planejado": 4000.0,
+        "tempo_planejado": 45,
+        "custo_atual": 3500.0,
+        "tempo_atual": 40,
+        "variação_custo": -500.0,
+        "variação_tempo": -5
       },
       {
         "etapa": "Acabamentos",
         "data_início": "2023-04-20",
         "data_conclusão_prevista": "2023-05-15",
-        "data_conclusão_real": "2023-05-25",
-        "cumprimento_prazo": "Atrasado"
+        "data_conclusão_real": "2023-05-20",
+        "cumprimento_prazo": "Atrasado",
+        "custo_planejado": 2000.0,
+        "tempo_planejado": 25,
+        "custo_atual": 2500.0,
+        "tempo_atual": 30,
+        "variação_custo": 500.0,
+        "variação_tempo": 5
       }
     ],
-    "variações": {
-      "custo": -5000.0,  
-      "tempo": 10  
-    },
+  
     "nível_conclusão": {
       "etapa": "Acabamentos",
-      "percentual_concluído": 70
+      "percentual_concluído": 100
     }
   },
   "materiais": [
