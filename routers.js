@@ -35,7 +35,7 @@ app.engine('hbs', exphbs.engine({extname: '.hbs',defaultLayout: "main"}));
 // define qual o template a ser utilizado
 app.set('view engine', 'hbs');
 app.use(bodyParser.json());
-
+app.use(formidable());
 // HTML files from template
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, '/templates/template_boot/home.html'));
@@ -235,29 +235,26 @@ app.post('/adicionar-obra', (req, res) => {
 
     try {
 
-      const obra = req.field;
+        const obra = req.fields;
+        console.log(req.fields)
+
+        if (!obra.nome) {
+            return res.status(400).json({ error: 'Name attribute is required' });
+        }
   
-      if (!obra.nome) {
-        return res.status(400).json({ error: 'Name attribute is required' });
-      }
+        const obraName = obra.nome.replace(/\s/g, '_').toLowerCase();
+        const filename = path.join(__dirname,dataFolder + `${obraName}.json`);
   
-      const obraName = obra.nome.replace(/\s/g, '_').toLowerCase();
-      const filename = path.join(__dirname,dataFolder + `${obraName}.json`);
+        fs.writeFileSync(filename, JSON.stringify(obra, null, 2));
   
-      fs.writeFileSync(filename, JSON.stringify(obra, null, 2));
-  
-      res.status(201).json({ message: 'Data saved successfully', filename });
-    } catch (error) {
-      res.status(500).json({ error: 'Internal server error' });
-    }
-});
+        res.status(201).json({ message: 'Data saved successfully', filename });
+       } catch (error) {
+          res.status(500).json({ error: 'Internal server error' });
+        }
+    });
 
 app.get('/add-project', function(req, res) {
     res.sendFile(path.join(__dirname, '/views/add-project.html'));
-});
-
-app.get('/profile_template', function(req, res) {
-    res.sendFile(path.join(__dirname, '/views/profile_template.hbs'));
 });
   
 

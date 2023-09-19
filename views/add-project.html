@@ -43,11 +43,12 @@
         <label for="salarioProjetistas">Salário Projetistas:</label>
         <input type="number" id="salarioProjetistas" name="salarioProjetistas"><br><br>
 
-        <button id="submitBuutton" href="./profile_template.hbs">Enviar</button>
+        <input type="submit" value="Enviar">
     </form>
 
     <div id="resultado"></div>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         document.getElementById('projetoForm').addEventListener('submit', function(event) {
             event.preventDefault();
@@ -85,10 +86,14 @@
                     }
                 ]
             };
-            document.getElementById('submitBuutton').addEventListener('click', function() {
-                console.log("passou aq")
-                //axios.post('/adicionar-obra', projetoData);
-            }); 
+            axios.post('/adicionar-obra', projetoData)
+                .then(function (response) {
+                    console.log('Requisição enviada com sucesso!', response);
+                })
+                .catch(function (error) {
+                    console.error('Erro ao enviar a requisição:', error);
+                });
+            window.history.back();
         });
         
 
