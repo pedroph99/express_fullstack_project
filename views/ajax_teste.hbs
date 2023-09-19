@@ -1,9 +1,8 @@
 <div class="row" id="projetos">
     
     
-    <div id="mensagem ranking">
-      <h2>aqui estara o resultado do ranking</h2>
-      <h>aqui estara alguma descrição <br>bla bla bla.</h>
+    <div class="mensagemRank" id="mensagem ranking">
+      
       </div>
      
       <div class="grafico2" id="GraficoDeColunas">
@@ -24,16 +23,15 @@
 
      .grafico2 {
       text-align: center; /* Alinha o texto no centro horizontalmente */
-      height: 75vh; /* Define a altura da div para ocupar toda a altura da tela */
       }
       .grafico{
         float:right;
-        width:45%;
+        width:60%;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        height: 85vh;
+        
       }
 
       .GraficoDeLinhas {
@@ -41,13 +39,16 @@
       }
       .grafico3{
         float:left;
-        width:45%;
+        width:40%;
         text-align: center;
          display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        height: 80vh;
+        
+      }
+      .mensagemRank{
+        font-size:100%;
       }
       
 
@@ -184,7 +185,7 @@
         }
 
         var mensagemRankingDiv = document.getElementById('mensagem ranking');
-        mensagemRankingDiv.innerHTML = '<h2> Sua classificação é:</h2><h><br>' + ranking + '<br><br>';
+        mensagemRankingDiv.innerHTML = '<h2> Sua classificação é:</h2><br>' + ranking + '<br><br>';
         
 
         //grafico de linhas
