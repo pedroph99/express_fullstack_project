@@ -59,23 +59,7 @@
       "percentual_concluído": 85
     }
   },
-  "materiais": [
-    {
-      "nome": "Tijolo",
-      "quantidade": 500,
-      "preço_unitário": 5.0
-    },
-    {
-      "nome": "Cimento",
-      "quantidade": 400,
-      "preço_unitário": 4.5
-    },
-    {
-      "nome": "Areia",
-      "quantidade": 350,
-      "preço_unitário": 3.0
-    }
-  ],
+  "materiais": [],
   "custos": {
     "mão_de_obra": 9000.0,
     "equipamentos": 4000.0,
