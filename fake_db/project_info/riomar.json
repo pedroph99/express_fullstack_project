@@ -18,9 +18,7 @@
         "custo_planejado": 1500.0,
         "tempo_planejado": 15,
         "custo_atual": 1800.0,
-        "tempo_atual": 20,
-        "variação_custo": 300.0,
-        "variação_tempo": 5
+        "tempo_atual": 20
       },
       {
         "etapa": "Construção da estrutura",
@@ -31,9 +29,7 @@
         "custo_planejado": 4000.0,
         "tempo_planejado": 45,
         "custo_atual": 3500.0,
-        "tempo_atual": 40,
-        "variação_custo": -500.0,
-        "variação_tempo": -5
+        "tempo_atual": 40
       },
       {
         "etapa": "Acabamentos",
@@ -44,9 +40,7 @@
         "custo_planejado": 2000.0,
         "tempo_planejado": 25,
         "custo_atual": 2500.0,
-        "tempo_atual": 30,
-        "variação_custo": 500.0,
-        "variação_tempo": 5
+        "tempo_atual": 30
       }
     ],
   

@@ -68,14 +68,20 @@
                     </tbody>
                   </table>
 
-                  
-                  <div class="orçamento" id="sparkline1"></div>
-                  <div class="orçamento" id="sparkline2"></div>
+                  <div class="primeiro">
+                  <div class="orçamento">
+                  <div  id="sparkline1"></div>
+                  <div  id="sparkline2"></div>
+                  </div>
                   <div id="etapastimeline"></div>
-                  <div id="grafico-etapas"></div>
-                  <div id="graficoDonut-custo"></div>
-                  <div class="texto" id="graficoTempo"><h1>oi</h1></div>
+                  </div>
+                  <div class="segundo">
                   <div id="graficoCustos"></div>
+                  <div id="grafico-etapas"></div>
+                  </div>
+                  <div class="texto" id="graficoDonut-custo"><h3>Variação do custo por etapa</h3></div>
+                  <div class="texto" id="graficoTempo"><h3>Variação do tempo por etapa</h3></div>
+                  
                   <table class="table">
                     <thead>
                       <tr>
@@ -102,10 +108,6 @@
                       </tr>
                     </tbody>
                   </table>
-                  
-  
-
-     
                 </div>
               </div>
             </div>
@@ -221,12 +223,44 @@
     </div>
     
   <style>
+    .primeiro{
+      display: flex;
+      width: 100%;
+      height: 400px;
+      align-items: baseline;
+      margin-top: 25px;
+      margin-bottom: 25px;
+    }
     .orçamento{
-      float: left;
-      width: 45%;
+      display: flex;
+      flex-direction: column;
+
+    }
+    
+    #etapastimeline{
+      width: 100%;
+
     }
     .texto{
       text-align: center;
+    }
+    .segundo{
+      display: flex;
+       width: 100%;
+      height: 400px;
+      margin-bottom: 25px;
+      }
+    #graficoCustos{
+      width: 100%;
+      height: 100%;
+    }
+    #grafico-etapas{
+      width: 100%;
+      height: 100%;
+    }
+    #graficoTempo{
+      margin-top: 25px;
+      margin-bottom: 25px;
     }
   </style>
 <script src="../elementosjs/assets/js/core/popper.min.js"></script>
@@ -525,7 +559,8 @@ donutChartEtapas.render();
       ],
       chart: {
         height: 350,
-        type: 'rangeBar'
+        type: 'rangeBar',
+        width: '100%'
       },
       plotOptions: {
         bar: {
@@ -661,7 +696,7 @@ var outrosCustos = infoProjeto.custos.outros_custos;
 var graficoCustosOptions = {
   series: [custosMaoDeObra, custosEquipamentos, outrosCustos],
   chart: {
-    width: '40%',
+    width: '80%',
     type: 'pie',
   },
   labels: ['Mão de Obra', 'Equipamentos', 'Outros Custos'],

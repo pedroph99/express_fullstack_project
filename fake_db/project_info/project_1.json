@@ -18,9 +18,7 @@
         "custo_planejado": 2000.0,
         "tempo_planejado": 20,
         "custo_atual": 1900.0,
-        "tempo_atual": 18,
-        "variação_custo": -100.0,
-        "variação_tempo": -2
+        "tempo_atual": 18
       },
       {
         "etapa": "Execução da obra",
@@ -31,9 +29,7 @@
         "custo_planejado": 4000.0,
         "tempo_planejado": 90,
         "custo_atual": 4000.0,
-        "tempo_atual": 95,
-        "variação_custo": 0.0,
-        "variação_tempo": 5
+        "tempo_atual": 95
       },
       {
         "etapa": "Inspeção e Aprovação",
@@ -44,9 +40,7 @@
         "custo_planejado": 800.0,
         "tempo_planejado": 5,
         "custo_atual": 850.0,
-        "tempo_atual": 10,
-        "variação_custo": 50.0,
-        "variação_tempo": 5
+        "tempo_atual": 10
       },
       {
         "etapa": "Finalização",
@@ -57,9 +51,7 @@
         "custo_planejado": 1500.0,
         "tempo_planejado": 15,
         "custo_atual": 1400,
-        "tempo_atual": null,
-        "variação_custo": 100,
-        "variação_tempo": null
+        "tempo_atual": null
       }
     ],
     "nível_conclusão": {
