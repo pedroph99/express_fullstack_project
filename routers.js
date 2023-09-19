@@ -34,10 +34,6 @@ app.listen(port, () => console.log(`Express app running on port ${port}!`));
 app.engine('hbs', exphbs.engine({extname: '.hbs',defaultLayout: "main"}));
 // define qual o template a ser utilizado
 app.set('view engine', 'hbs');
-const dataFolder = 'fake_db/project_info'; // Replace with your desired folder name
-//if (!fs.existsSync(dataFolder)) {
-//    fs.mkdirSync(dataFolder);
-//}
 app.use(bodyParser.json());
 
 // HTML files from template
@@ -230,6 +226,10 @@ app.get('/projectapi/:nameproject',
 });
 
 //Salva novas obras
+const dataFolder = 'fake_db/project_info/'; // Replace with your desired folder name
+if (!fs.existsSync(dataFolder)) {
+    fs.mkdirSync(dataFolder);
+}
 app.post('/adicionar-obra', (req, res) => {
     console.log("passou da requisição");
 
@@ -242,7 +242,7 @@ app.post('/adicionar-obra', (req, res) => {
       }
   
       const obraName = obra.name.replace(/\s/g, '_').toLowerCase();
-      const filename = path.join(__dirname,`/fake_db/users/obra_${obraName}.json`);
+      const filename = path.join(__dirname,dataFolder + `${obraName}.json`);
   
       fs.writeFileSync(filename, JSON.stringify(obra, null, 2));
   
