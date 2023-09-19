@@ -68,15 +68,40 @@
                     </tbody>
                   </table>
 
-                  <div id="grafico-barras"></div>
-                  <div id="grafico-donut"></div>
-                  <div id="sparkline1"></div>
-                  <div id="sparkline2"></div>
+                  
+                  <div class="orçamento" id="sparkline1"></div>
+                  <div class="orçamento" id="sparkline2"></div>
                   <div id="etapastimeline"></div>
                   <div id="grafico-etapas"></div>
                   <div id="graficoDonut-custo"></div>
-                  <div id="graficoTempo"></div>
+                  <div class="texto" id="graficoTempo"><h1>oi</h1></div>
                   <div id="graficoCustos"></div>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Informações do Cliente</th>
+                        <th></th>  <!-- Coluna vazia -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Nome Cliente:</td>
+                        <td id="nomeCliente"></td>
+                      </tr>
+                      <tr>
+                        <td>Contato Cliente:</td>
+                        <td id="contatoCliente"></td>
+                      </tr>
+                      <tr>
+                        <td>Telefone Cliente:</td>
+                        <td id="telefoneCliente"></td>
+                      </tr>
+                      <tr>
+                        <td>Email Cliente:</td>
+                        <td id="emailCliente"></td>
+                      </tr>
+                    </tbody>
+                  </table>
                   
   
 
@@ -195,7 +220,15 @@
       </div>
     </div>
     
-  
+  <style>
+    .orçamento{
+      float: left;
+      width: 45%;
+    }
+    .texto{
+      text-align: center;
+    }
+  </style>
 <script src="../elementosjs/assets/js/core/popper.min.js"></script>
     <script src="../elementosjs/assets/js/core/bootstrap.min.js"></script>
     <script src="../elementosjs/assets/js/plugins/perfect-scrollbar.min.js"></script>
@@ -241,11 +274,8 @@
   function myFunction(respostaApi) {
     console.log(respostaApi);
     const infoProjeto = JSON.parse(respostaApi);
-    console.log(infoProjeto.materiais.length);
-    var NomesMateriais = [];
-    var QuantidadeMateriais = [];
-
-     var nomeProjeto = infoProjeto.projeto.nome;
+ 
+    var nomeProjeto = infoProjeto.projeto.nome;
 
     // Selecionando o elemento h1 com o ID "nomeProjeto"
     var elementoNomeProjeto = document.getElementById("nomeProjeto");
@@ -269,6 +299,8 @@
     var elementoEtapaAtual = document.getElementById("etapaAtual");
     var elementoPorcentagemConclusao = document.getElementById("porcentagemConclusao");
 
+    
+
     // Verificando se os elementos foram encontrados
     if (elementoEncarregado) {
       elementoEncarregado.innerHTML = encarregado;
@@ -286,63 +318,29 @@
       elementoPorcentagemConclusao.innerHTML = porcentagemConclusao + "%";
     }
 
-    for (let i = 0; i < infoProjeto.materiais.length; i++) {
-      QuantidadeMateriais.push(infoProjeto.materiais[i].quantidade);
-      NomesMateriais.push(infoProjeto.materiais[i].nome);
+    var nomeCliente = infoProjeto.clientes.nome_cliente;
+    var contatoCliente = infoProjeto.clientes.contato_cliente;
+    var telefoneCliente = infoProjeto.clientes.telefone_cliente;
+    var emailCliente = infoProjeto.clientes.email_cliente;
+
+    var elementoNomeCliente = document.getElementById("nomeCliente");
+    var elementoContatoCliente = document.getElementById("contatoCliente");
+    var elementoTelefoneCliente = document.getElementById("telefoneCliente");
+    var elementoEmailCliente = document.getElementById("emailCliente");
+
+    if (elementoNomeCliente) {
+      elementoNomeCliente.innerHTML = nomeCliente;
+    }
+    if (elementoContatoCliente) {
+      elementoContatoCliente.innerHTML = contatoCliente;
+    }
+    if (elementoTelefoneCliente) {
+      elementoTelefoneCliente.innerHTML = telefoneCliente;
+    }
+    if (elementoEmailCliente) {
+      elementoEmailCliente.innerHTML = emailCliente;
     }
 
-    // Gráfico de Barras (Quantidades de Materiais)
-    var MateriasGrafico = {
-      series: [{
-        data: QuantidadeMateriais
-      }],
-      chart: {
-        type: 'bar',
-        height: 350
-      },
-      plotOptions: {
-        bar: {
-          borderRadius: 10,
-          horizontal: true,
-        }
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      xaxis: {
-        categories: NomesMateriais,
-      }
-    };
-
-    // Renderizar o Gráfico de Barras na div "grafico-barras"
-    var chart = new ApexCharts(document.querySelector("#grafico-barras"), MateriasGrafico);
-    chart.render();
-
-    // Gráfico Donut (Distribuição de Quantidades de Materiais)
-    var DistribuicaoMateriaisGrafico = {
-      series: QuantidadeMateriais,
-      chart: {
-        type: 'donut',
-        height: 350
-      },
-      labels: NomesMateriais,
-      colors: ['#00D8B6', '#008FFB', '#FEB019', '#FF4560', '#775DD0'],
-      dataLabels: {
-        enabled: true,
-        formatter: function (val) {
-          return val.toFixed(2) + "%";
-        }
-      },
-      title: {
-        text: 'Distribuição de Quantidades de Materiais'
-      }
-    };
-
-    // Renderizar o Gráfico Donut na div "grafico-donut"
-    var donutChart = new ApexCharts(document.querySelector("#grafico-donut"), DistribuicaoMateriaisGrafico);
-    donutChart.render();
-
-    // Supondo que 'infoProjeto' é o objeto que contém os dados do projeto a partir do seu arquivo JSON
 
 // Função para contar o número de etapas em cada estado (atrasadas, antecipadas, em andamento)
 function contarEtapasPorEstado(infoProjeto) {
