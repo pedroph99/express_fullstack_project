@@ -11,15 +11,41 @@
             "nome": "riomar"
         }
     ],
-    "ranking": {
-        "produtividade": 7.5,
-        "qualidade": 6,
-        "trabalho_equipe": 8,
-        "cumprimento_prazos": 7,
-        "iniciativa": 6,
-        "gestao_de_conflitos": 6,
-        "treinamento": 8,
-        "epi": 10,
-        "feedback": 8
-    }
+    "ranking":
+        {
+        "Produtividade": 8,
+        "Qualidade": 10,
+        "Trabalho Equipe": 5,
+        "Cumprimento Prazos": 8.5,
+        "Iniciativa": 9,
+        "Gestao de Conflitos": 6,
+        "Treinamento": 9,
+        "EPI": 7,
+        "Feedback": 8.5
+    },
+    
+    "horas_extras": {
+        "Jan": 5,
+        "Fev": 4,
+        "Mar": 7,
+        "Abr": 10,
+        "Mai": 5,
+        "Jun": 8,
+        "Jul": 0,
+        "Aug": 2,
+        "Set": 1,
+        "Out": 4,
+        "Nov": 8,
+        "Dez": 6
+    },
+
+    "participacao_mercado_anual": {
+        "2023": {
+          "Obras": 15,
+          "Software": 53,
+          "Pesquisa": 17,
+          "Marketing": 10,
+          "Outras": 5
+        }
+      }
 }

@@ -3,38 +3,53 @@
     
     <div id="mensagem ranking">
       <h2>aqui estara o resultado do ranking</h2>
-      <h>aqui pode ser alguma descrição <br>bla bla bla. 
-      </h>
-    
-    </div>
-    <div class="espaço" id="lista de projetos">
-	
-	    <h2> aqui ficarão as informações dos projetos </h2>
-      <h> exemplos:<br>projeto 1<br>projeto 2<br> projeto3</h>
-
-    </div>
-    <div class="grafico" id="GraficoDeLinhas">
-      <h2>isso aqui é um teste</h2>
-    </div>
-    
-    <div class="grafico2" id="GraficoDeColunas">
+      <h>aqui estara alguma descrição <br>bla bla bla.</h>
+      </div>
+     
+      <div class="grafico2" id="GraficoDeColunas">
       
-      <h1>aqui um gráfico de colunas com informações</h1>
+      <h2>Informações do Usuário</h2>
+      <h> Nota por parâmetro <br> <br> </h>
     </div>  
-  
-    
 
+    <div class="grafico3" id="GraficoDeParticipacao">
+      <h2> Participação do Usuario na Empresa </h2>
+    </div>
+   
+    <div class="grafico" id="GraficoDeLinhas">
+      <h2>Horas Extras Realizadas</h2>
+    </div>
+  
     <style>
 
+     .grafico2 {
+      text-align: center; /* Alinha o texto no centro horizontalmente */
+      height: 75vh; /* Define a altura da div para ocupar toda a altura da tela */
+      }
       .grafico{
         float:right;
         width:45%;
-        border: 1px solid black;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 85vh;
       }
-      .espaço{
+
+      .GraficoDeLinhas {
+        text-align: center;
+      }
+      .grafico3{
         float:left;
         width:45%;
+        text-align: center;
+         display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
       }
+      
 
     </style>
 
@@ -56,11 +71,11 @@
       function processamento(dados){
         const DadosUsuario = JSON.parse(dados);
         console.log(DadosUsuario);
-        const quantidadeItensNoRanking = Object.keys(DadosUsuario.ranking).length;
-        console.log(quantidadeItensNoRanking);
+        const quantidadeItensNoRanking = Object.keys(DadosUsuario.ranking).length; //criando uma constante e colocando a quantidade de chaves do ranking
+        console.log(quantidadeItensNoRanking); 
         
-        var nomesItensRanking = [];
-        var valoresItensRanking = [];
+        var nomesItensRanking = []; //nome das chaves
+        var valoresItensRanking = []; //notas
 
         // Adiciona as chaves individualmente ao array nomesItensRanking
         Object.keys(DadosUsuario.ranking).forEach(function(chave) {
@@ -72,9 +87,7 @@
         
         console.log(nomesItensRanking);
         console.log(valoresItensRanking);
-      
-
-
+    
         //grafico de colunas
         var colunas = {
             series: [{
@@ -100,7 +113,7 @@
             },
             offsetY: -20,
             style: {
-              fontSize: '12px',
+              fontSize: '14px',
               colors: ["#304758"]
             }
           },
@@ -146,62 +159,93 @@
             }
           
           },
-          title: {
-            text: 'Informações gerais',
-            floating: true,
-            offsetY: 330,
-            align: 'center',
-            style: {
-              color: '#444'
-            }
-          }
           };
 
           var chart = new ApexCharts(document.querySelector("#GraficoDeColunas"), colunas);
           chart.render();
 
+        var somaValores = valoresItensRanking.slice(0, 9).reduce(function (a, b) {
+        return a + b;
+        }, 0);                //criando o rank
+
+        var ranking = '';
+        if (somaValores >= 90) {
+          ranking = 'S (Superior)';
+        } else if (somaValores >= 80) {
+          ranking = 'A (Excelente)';
+        } else if (somaValores >= 70) {
+          ranking = 'B (Bom)';
+        } else if (somaValores >= 60) {
+          ranking = 'C (Satisfatório)';
+        } else if (somaValores >= 50) {
+          ranking = 'D (Abaixo da Média)';
+        } else {
+          ranking = 'E (Insatisfatório)';
+        }
+
+        var mensagemRankingDiv = document.getElementById('mensagem ranking');
+        mensagemRankingDiv.innerHTML = '<h2> Sua classificação é:</h2><h><br>' + ranking + '<br><br>';
         
+
         //grafico de linhas
         var linhas = {
-            series: [{
-              name: "Desktops",
-              data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
-          }],
-            chart: {
-            height: 350,
-            type: 'line',
-            zoom: {
-              enabled: false
-            }
-          },
-          dataLabels: {
-            enabled: false
-          },
-          stroke: {
-            curve: 'straight'
-          },
-          title: {
-            text: 'Product Trends by Month',
-            align: 'left'
-          },
-          grid: {
-            row: {
-              colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-              opacity: 0.5
-            },
-          },
-          xaxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+        series: [
+          {
+            name: "Horas Extras",
+            data: Object.values(DadosUsuario.horas_extras)
           }
-          };
-
-          var chart = new ApexCharts(document.querySelector("#GraficoDeLinhas"), linhas);
-          chart.render();
+        ],
+        chart: {
+          height: 350,
+          type: 'line',
+          zoom: {
+            enabled: false
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'smooth'
+        },
+        grid: {
+          row: {
+            colors: ['#f3f3f3', 'transparent'],
+            opacity: 0.5
+          },
+        },
+        xaxis: {
+          categories: Object.keys(DadosUsuario.horas_extras)
+        }
       };
 
+      var chartLinhas = new ApexCharts(document.querySelector("#GraficoDeLinhas"), linhas);
+      chartLinhas.render();
 
-        
-        
+      // Gráfico de pizza de Participação 
+      var PizzaParticipacaoMercado = {
+        series: Object.values(DadosUsuario.participacao_mercado_anual['2023']), // Valores das fatias para o mês de janeiro
+        labels: Object.keys(DadosUsuario.participacao_mercado_anual['2023']), // Rótulos das fatias
+        chart: {
+          type: 'pie', // Tipo de gráfico de pizza
+          height: 350,
+        },
+        dataLabels: {
+          enabled: true, // Exibir rótulos de dados dentro das fatias
+        },
+        legend: {
+          position: 'bottom', // Posição da legenda
+        },
+        tooltip: {
+          enabled: true, // Exibir dicas de ferramentas
+        },
+      };
+
+      var chartPizza = new ApexCharts(document.querySelector("#GraficoDeParticipacao"), PizzaParticipacaoMercado);
+      chartPizza.render(); // Renderiza o gráfico de pizza
+      
+      };
+
     </script>
    
     </div>
