@@ -9,6 +9,9 @@
     <h1>Formulário de Dados do Projeto</h1>
 
     <form id="projetoForm">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome"><br><br>
+
         <label for="encarregado">Encarregado:</label>
         <input type="text" id="encarregado" name="encarregado"><br><br>
 
@@ -40,7 +43,7 @@
         <label for="salarioProjetistas">Salário Projetistas:</label>
         <input type="number" id="salarioProjetistas" name="salarioProjetistas"><br><br>
 
-        <input type="submit" value="Enviar">
+        <button id="submitBuutton" href="./profile_template.hbs">Enviar</button>
     </form>
 
     <div id="resultado"></div>
@@ -48,7 +51,8 @@
     <script>
         document.getElementById('projetoForm').addEventListener('submit', function(event) {
             event.preventDefault();
-        
+            
+            var nome = document.getElementById('nome').value;
             var encarregado = document.getElementById('encarregado').value;
             var bio = document.getElementById('bio').value;
             var status = document.getElementById('status').value;
@@ -61,6 +65,7 @@
             var salarioProjetistas = parseInt(document.getElementById('salarioProjetistas').value);
         
             var projetoData = {
+                "nome": nome,
                 "encarregado": encarregado,
                 "bio": bio,
                 "status": status,
@@ -80,20 +85,10 @@
                     }
                 ]
             };
-        
-            $.ajax({
-                type: "POST",
-                url: "/adicionar-obra",
-                data: JSON.stringify(projetoData),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function(data) {
-                    console.log('Success:', data);
-                },
-                error: function(error) {
-                    console.error('Error:', error);
-                }
-            });
+            document.getElementById('submitBuutton').addEventListener('click', function() {
+                console.log("passou aq")
+                //axios.post('/adicionar-obra', projetoData);
+            }); 
         });
         
 

@@ -226,7 +226,7 @@ app.get('/projectapi/:nameproject',
 });
 
 //Salva novas obras
-const dataFolder = 'fake_db/project_info/'; // Replace with your desired folder name
+const dataFolder = 'fake_db/project_info/';
 if (!fs.existsSync(dataFolder)) {
     fs.mkdirSync(dataFolder);
 }
@@ -235,13 +235,13 @@ app.post('/adicionar-obra', (req, res) => {
 
     try {
 
-      const obra = req.body;
+      const obra = req.field;
   
-      if (!obra.name) {
+      if (!obra.nome) {
         return res.status(400).json({ error: 'Name attribute is required' });
       }
   
-      const obraName = obra.name.replace(/\s/g, '_').toLowerCase();
+      const obraName = obra.nome.replace(/\s/g, '_').toLowerCase();
       const filename = path.join(__dirname,dataFolder + `${obraName}.json`);
   
       fs.writeFileSync(filename, JSON.stringify(obra, null, 2));
@@ -250,7 +250,15 @@ app.post('/adicionar-obra', (req, res) => {
     } catch (error) {
       res.status(500).json({ error: 'Internal server error' });
     }
-  });
+});
+
+app.get('/add-project', function(req, res) {
+    res.sendFile(path.join(__dirname, '/views/add-project.html'));
+});
+
+app.get('/profile_template', function(req, res) {
+    res.sendFile(path.join(__dirname, '/views/profile_template.hbs'));
+});
   
 
 // route css elements from template
