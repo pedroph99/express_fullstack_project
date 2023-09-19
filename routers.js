@@ -182,6 +182,10 @@ app.get('/home_page_login',auth_mid,  function(req, res) {
     res.render('profile_template', {name: req.session.username,  object_projects})
 
 });
+app.get('/logout', function(req,res){
+    req.session.username = 'NA';
+    res.redirect('/login');
+});
 app.get('/testeajax',auth_mid,  function(req, res) {
     
     res.render('ajax_teste')
