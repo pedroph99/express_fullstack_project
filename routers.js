@@ -198,10 +198,7 @@ app.get('/projects/:name', auth_mid,  function(req, res) {
     console.log('=====================================')
     console.log(parsea_projeto)
     console.log('=====================================')
-    materiais = []
-    for(let i=0; i<parsea_projeto.materiais.length; i++){
-        materiais.push(parsea_projeto.materiais[i].nome)
-    }
+    
     if(parsea_projeto != null){
         res.render('project_dashboard', {nome: parsea_projeto.encarregado, current_project: req.url.split('/')[2]})
         return
