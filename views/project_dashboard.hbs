@@ -28,24 +28,56 @@
               <div class="col-12 col-xl-4">
                 <div class="card card-plain h-100">
                   <div class="card-header pb-0 p-3">
-                    <h6 class="mb-0">Platform Settings</h6>
+                    <h6 class="mb-0">Dashboard</h6>
                   </div>
   
                 </div>
               </div>
 
               <div class="col-12 mt-4">
-                <div class="mb-5 ps-3">
-                  <h6 class="mb-1">Projects</h6>
-                  <p class="text-sm">Architects design houses</p>
-                </div>
+              
                 <div class="row" id="projetos">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Informações do Projeto</th>
+                        <th></th>  <!-- Coluna vazia -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Encarregado:</td>
+                        <td id="encarregado"></td>
+                      </tr>
+                      <tr>
+                        <td>Data de Início:</td>
+                        <td id="dataInicio"></td>
+                      </tr>
+                      <tr>
+                        <td>Data de Conclusão Prevista:</td>
+                        <td id="dataConclusaoPrevista"></td>
+                      </tr>
+                      <tr>
+                        <td>Etapa Atual:</td>
+                        <td id="etapaAtual"></td>
+                      </tr>
+                      <tr>
+                        <td>Porcentagem de Conclusão (%):</td>
+                        <td id="porcentagemConclusao"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
                   <div id="grafico-barras"></div>
                   <div id="grafico-donut"></div>
                   <div id="sparkline1"></div>
                   <div id="sparkline2"></div>
                   <div id="etapastimeline"></div>
-    
+                  <div id="grafico-etapas"></div>
+                  <div id="graficoDonut-custo"></div>
+                  <div id="graficoTempo"></div>
+                  <div id="graficoCustos"></div>
+                  
   
 
      
@@ -224,6 +256,36 @@
       elementoNomeProjeto.innerHTML = `<h1>${nomeProjeto}</h1>`;
     }
 
+    var encarregado = infoProjeto.projeto.encarregado;
+    var dataInicio = infoProjeto.projeto.data_inicio;
+    var dataConclusaoPrevista = infoProjeto.projeto.data_conclusão_prevista;
+    var etapaAtual = infoProjeto.projeto.nível_conclusão.etapa;
+    var porcentagemConclusao = infoProjeto.projeto.nível_conclusão.percentual_concluído;
+
+    // Selecionando os elementos da tabela
+    var elementoEncarregado = document.getElementById("encarregado");
+    var elementoDataInicio = document.getElementById("dataInicio");
+    var elementoDataConclusaoPrevista = document.getElementById("dataConclusaoPrevista");
+    var elementoEtapaAtual = document.getElementById("etapaAtual");
+    var elementoPorcentagemConclusao = document.getElementById("porcentagemConclusao");
+
+    // Verificando se os elementos foram encontrados
+    if (elementoEncarregado) {
+      elementoEncarregado.innerHTML = encarregado;
+    }
+    if (elementoDataInicio) {
+      elementoDataInicio.innerHTML = dataInicio;
+    }
+    if (elementoDataConclusaoPrevista) {
+      elementoDataConclusaoPrevista.innerHTML = dataConclusaoPrevista;
+    }
+    if (elementoEtapaAtual) {
+      elementoEtapaAtual.innerHTML = etapaAtual;
+    }
+    if (elementoPorcentagemConclusao) {
+      elementoPorcentagemConclusao.innerHTML = porcentagemConclusao + "%";
+    }
+
     for (let i = 0; i < infoProjeto.materiais.length; i++) {
       QuantidadeMateriais.push(infoProjeto.materiais[i].quantidade);
       NomesMateriais.push(infoProjeto.materiais[i].nome);
@@ -279,6 +341,63 @@
     // Renderizar o Gráfico Donut na div "grafico-donut"
     var donutChart = new ApexCharts(document.querySelector("#grafico-donut"), DistribuicaoMateriaisGrafico);
     donutChart.render();
+
+    // Supondo que 'infoProjeto' é o objeto que contém os dados do projeto a partir do seu arquivo JSON
+
+// Função para contar o número de etapas em cada estado (atrasadas, antecipadas, em andamento)
+function contarEtapasPorEstado(infoProjeto) {
+  const prazos = infoProjeto.projeto.prazos;
+
+  let etapasAtrasadas = 0;
+  let etapasAntecipadas = 0;
+  let etapasEmAndamento = 0;
+
+  for (const prazo of prazos) {
+    switch (prazo.cumprimento_prazo) {
+      case "Atrasado":
+        etapasAtrasadas++;
+        break;
+      case "Antecipado":
+        etapasAntecipadas++;
+        break;
+      case "Em andamento":
+        etapasEmAndamento++;
+        break;
+      default:
+        break;
+    }
+  }
+
+  return { etapasAtrasadas, etapasAntecipadas, etapasEmAndamento };
+}
+
+// Chama a função para contar as etapas em cada estado
+const { etapasAtrasadas, etapasAntecipadas, etapasEmAndamento } = contarEtapasPorEstado(infoProjeto);
+
+// Configuração do gráfico de donut
+var DistribuicaoEtapasGrafico = {
+  series: [etapasAtrasadas, etapasAntecipadas, etapasEmAndamento],
+  chart: {
+    type: 'donut',
+    height: 350
+  },
+  labels: ['Etapas Atrasadas', 'Etapas Antecipadas', 'Etapas Em Andamento'],
+  colors: ['#FF4560', '#00D8B6', '#775DD0'],  // Cores para etapas atrasadas, antecipadas e em andamento
+  dataLabels: {
+    enabled: true,
+    formatter: function (val) {
+      return val.toFixed(2) + "%";
+    }
+  },
+  title: {
+    text: 'Distribuição de Etapas'
+  }
+};
+
+// Renderizar o Gráfico Donut na div "grafico-donut"
+var donutChartEtapas = new ApexCharts(document.querySelector("#grafico-etapas"), DistribuicaoEtapasGrafico);
+donutChartEtapas.render();
+
     // Gráfico de Área 1 (Orçamento Inicial)
     var sparklineData1 = [infoProjeto.projeto.orçamento_inicial];
     var spark1 = {
@@ -431,5 +550,152 @@
     // Renderize o gráfico
     const chartEtapas = new ApexCharts(document.querySelector("#etapastimeline"), options);
     chartEtapas.render();
+
+   var CustoPlanejado = [];
+var CustoReal = []; // Alterado o nome da variável
+var Etapas = [];
+
+// Preenchendo os arrays com os dados das etapas e custos
+infoProjeto.projeto.prazos.forEach(function(prazo) {
+  CustoPlanejado.push(prazo.custo_planejado);
+  CustoReal.push(prazo.custo_atual); // Alterado o nome da variável
+  Etapas.push(prazo.etapa);
+});
+
+// Configurações para o Gráfico de Colunas (Custo Planejado e Custo Real)
+var  graficoCustoOptions = {
+  series: [
+    {
+      name: 'Custo Planejado',
+      data: CustoPlanejado
+    },
+    {
+      name: 'Custo Real',
+      data: CustoReal
+    }
+  ],
+  chart: {
+    height: 350,
+    type: 'bar'
+  },
+  plotOptions: {
+    bar: {
+      columnWidth: '40%'
+    }
+  },
+  colors: ['#FF4560', '#775DD0'],
+  dataLabels: {
+    enabled: false
+  },
+  xaxis: {
+    categories: Etapas
+  },
+  legend: {
+    show: true,
+    showForSingleSeries: true,
+    customLegendItems: ['Custo Planejado', 'Custo Real'],
+    markers: {
+      fillColors: ['#FF4560', '#775DD0']
+    }
+  }
+};
+
+var graficoCusto = new ApexCharts(document.querySelector("#graficoDonut-custo"), graficoCustoOptions);
+graficoCusto.render();
+
+var TempoPlanejado = [];
+var TempoReal = [];
+var Etapas = [];
+
+// Preenchendo os arrays com os dados das etapas e tempos
+infoProjeto.projeto.prazos.forEach(function(prazo) {
+  TempoPlanejado.push(prazo.tempo_planejado);
+  TempoReal.push(prazo.tempo_atual);
+  Etapas.push(prazo.etapa);
+});
+
+// Configurações para o Gráfico de Colunas (Tempo Planejado e Tempo Real)
+var graficoTempoOptions = {
+  series: [
+    {
+      name: 'Tempo Planejado',
+      data: TempoPlanejado
+    },
+    {
+      name: 'Tempo Real',
+      data: TempoReal
+    }
+  ],
+  chart: {
+    height: 350,
+    type: 'bar'
+  },
+  plotOptions: {
+    bar: {
+      columnWidth: '40%'
+    }
+  },
+  colors: ['#008FFB', '#00E396'],
+  dataLabels: {
+    enabled: false
+  },
+  xaxis: {
+    categories: Etapas
+  },
+  legend: {
+    show: true,
+    showForSingleSeries: true,
+    customLegendItems: ['Tempo Planejado', 'Tempo Real'],
+    markers: {
+      fillColors: ['#008FFB', '#00E396']
+    }
+  }
+};
+
+var graficoTempo = new ApexCharts(document.querySelector("#graficoTempo"), graficoTempoOptions);
+graficoTempo.render();
+
+var custosMaoDeObra = infoProjeto.custos.mão_de_obra;
+var custosEquipamentos = infoProjeto.custos.equipamentos;
+var outrosCustos = infoProjeto.custos.outros_custos;
+
+// Configurações para o Gráfico de Pizza (Custos)
+var graficoCustosOptions = {
+  series: [custosMaoDeObra, custosEquipamentos, outrosCustos],
+  chart: {
+    width: '40%',
+    type: 'pie',
+  },
+  labels: ['Mão de Obra', 'Equipamentos', 'Outros Custos'],
+  theme: {
+    monochrome: {
+      enabled: true
+    }
+  },
+  plotOptions: {
+    pie: {
+      dataLabels: {
+        offset: -5
+      }
+    }
+  },
+  title: {
+    text: 'Distribuição dos Custos'
+  },
+  dataLabels: {
+    formatter(val, opts) {
+      const name = opts.w.globals.labels[opts.seriesIndex]
+      return [name, val.toFixed(1) + '%']
+    }
+  },
+  legend: {
+    show: true,
+    position: 'bottom'
+  }
+};
+
+var graficoCustos = new ApexCharts(document.querySelector('#graficoCustos'), graficoCustosOptions);
+graficoCustos.render();
+
   }
 </script>
