@@ -1,15 +1,300 @@
-<div id="teste"> 
+<body class="g-sidenav-show bg-gray-200">
+    <div class="main-content position-relative max-height-vh-100 h-100">
+      <!-- Navbar -->
+      <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 " id="navbarBlur" data-scroll="true">
+      </nav>
+      <!-- End Navbar -->
+      <div class="container-fluid px-2 px-md-4">
+        <div class="page-header min-height-300 border-radius-xl mt-4">
+          <span class="mask  bg-gradient-primary  opacity-7"></span>
+        </div>
+        <div class="card card-body mx-3 mx-md-4 mt-n6">
+          <div class="row gx-4 mb-2">
+            <div class="col-auto my-auto">
+              <div class="h-100">
+                <h5 class="mb-1">
+                  {{name}}
+                </h5>
+                <p class="mb-0 font-weight-normal text-sm">
+                  CEO / Co-Founder
+                </p>
+              </div>
+            </div>
+   
+          </div>
+          <h1 id="nomeProjeto"></h1>
+          <div class="row">
+            <div class="row">
+              <div class="col-12 col-xl-4">
+                <div class="card card-plain h-100">
+                  <div class="card-header pb-0 p-3">
+                    <h6 class="mb-0">Dashboard</h6>
+                  </div>
+  
+                </div>
+              </div>
+
+              <div class="col-12 mt-4">
+              
+                <div class="row" id="projetos">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Informações do Projeto</th>
+                        <th></th>  <!-- Coluna vazia -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Encarregado:</td>
+                        <td id="encarregado"></td>
+                      </tr>
+                      <tr>
+                        <td>Data de Início:</td>
+                        <td id="dataInicio"></td>
+                      </tr>
+                      <tr>
+                        <td>Data de Conclusão Prevista:</td>
+                        <td id="dataConclusaoPrevista"></td>
+                      </tr>
+                      <tr>
+                        <td>Etapa Atual:</td>
+                        <td id="etapaAtual"></td>
+                      </tr>
+                      <tr>
+                        <td>Porcentagem de Conclusão (%):</td>
+                        <td id="porcentagemConclusao"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <div class="primeiro">
+                  <div class="orçamento">
+                  <div  id="sparkline1"></div>
+                  <div  id="sparkline2"></div>
+                  </div>
+                  <div id="etapastimeline"></div>
+                  </div>
+                  <div class="segundo">
+                  <div id="graficoCustos"></div>
+                  <div id="grafico-etapas"></div>
+                  </div>
+                  <div class="texto" id="graficoDonut-custo"><h3>Variação do custo por etapa</h3></div>
+                  <div class="texto" id="graficoTempo"><h3>Variação do tempo por etapa</h3></div>
+                  
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Informações do Cliente</th>
+                        <th></th>  <!-- Coluna vazia -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Nome Cliente:</td>
+                        <td id="nomeCliente"></td>
+                      </tr>
+                      <tr>
+                        <td>Contato Cliente:</td>
+                        <td id="contatoCliente"></td>
+                      </tr>
+                      <tr>
+                        <td>Telefone Cliente:</td>
+                        <td id="telefoneCliente"></td>
+                      </tr>
+                      <tr>
+                        <td>Email Cliente:</td>
+                        <td id="emailCliente"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="footer py-4  ">
+        <div class="container-fluid">
+          <div class="row align-items-center justify-content-lg-between">
+            <div class="col-lg-6 mb-lg-0 mb-4">
+              <div class="copyright text-center text-sm text-muted text-lg-start">
+                © <script>
+                  document.write(new Date().getFullYear())
+                </script>,
+                made with <i class="fa fa-heart"></i> by
+                <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
+                for a better web.
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+                <li class="nav-item">
+                  <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative Tim</a>
+                </li>
+                <li class="nav-item">
+                  <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted" target="_blank">About Us</a>
+                </li>
+                <li class="nav-item">
+                  <a href="https://www.creative-tim.com/blog" class="nav-link text-muted" target="_blank">Blog</a>
+                </li>
+                <li class="nav-item">
+                  <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted" target="_blank">License</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <div class="fixed-plugin">
+      <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
+        <i class="material-icons py-2">settings</i>
+      </a>
+      <div class="card shadow-lg">
+        <div class="card-header pb-0 pt-3">
+          <div class="float-start">
+            <h5 class="mt-3 mb-0">Material UI Configurator</h5>
+            <p>See our dashboard options.</p>
+          </div>
+          <div class="float-end mt-4">
+            <button class="btn btn-link text-dark p-0 fixed-plugin-close-button">
+              <i class="material-icons">clear</i>
+            </button>
+          </div>
+          <!-- End Toggle Button -->
+        </div>
+        <hr class="horizontal dark my-1">
+        <div class="card-body pt-sm-3 pt-0">
+          <!-- Sidebar Backgrounds -->
+          <div>
+            <h6 class="mb-0">Sidebar Colors</h6>
+          </div>
+          <a href="javascript:void(0)" class="switch-trigger background-color">
+            <div class="badge-colors my-2 text-start">
+              <span class="badge filter bg-gradient-primary active" data-color="primary" onclick="sidebarColor(this)"></span>
+              <span class="badge filter bg-gradient-dark" data-color="dark" onclick="sidebarColor(this)"></span>
+              <span class="badge filter bg-gradient-info" data-color="info" onclick="sidebarColor(this)"></span>
+              <span class="badge filter bg-gradient-success" data-color="success" onclick="sidebarColor(this)"></span>
+              <span class="badge filter bg-gradient-warning" data-color="warning" onclick="sidebarColor(this)"></span>
+              <span class="badge filter bg-gradient-danger" data-color="danger" onclick="sidebarColor(this)"></span>
+            </div>
+          </a>
+          <!-- Sidenav Type -->
+          <div class="mt-3">
+            <h6 class="mb-0">Sidenav Type</h6>
+            <p class="text-sm">Choose between 2 different sidenav types.</p>
+          </div>
+          <div class="d-flex">
+            <button class="btn bg-gradient-dark px-3 mb-2 active" data-class="bg-gradient-dark" onclick="sidebarType(this)">Dark</button>
+            <button class="btn bg-gradient-dark px-3 mb-2 ms-2" data-class="bg-transparent" onclick="sidebarType(this)">Transparent</button>
+            <button class="btn bg-gradient-dark px-3 mb-2 ms-2" data-class="bg-white" onclick="sidebarType(this)">White</button>
+          </div>
+          <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
+          <!-- Navbar Fixed -->
+          <div class="mt-3 d-flex">
+            <h6 class="mb-0">Navbar Fixed</h6>
+            <div class="form-check form-switch ps-0 ms-auto my-auto">
+              <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed" onclick="navbarFixed(this)">
+            </div>
+          </div>
+          <hr class="horizontal dark my-3">
+          <div class="mt-2 d-flex">
+            <h6 class="mb-0">Light / Dark</h6>
+            <div class="form-check form-switch ps-0 ms-auto my-auto">
+              <input class="form-check-input mt-1 ms-auto" type="checkbox" id="dark-version" onclick="darkMode(this)">
+            </div>
+          </div>
+          <hr class="horizontal dark my-sm-4">
+          <a class="btn bg-gradient-info w-100" href="https://www.creative-tim.com/product/material-dashboard-pro">Free Download</a>
+          <a class="btn btn-outline-dark w-100" href="https://www.creative-tim.com/learning-lab/bootstrap/overview/material-dashboard">View documentation</a>
+          <div class="w-100 text-center">
+            <a class="github-button" href="https://github.com/creativetimofficial/material-dashboard" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star creativetimofficial/material-dashboard on GitHub">Star</a>
+            <h6 class="mt-3">Thank you for sharing!</h6>
+            <a href="https://twitter.com/intent/tweet?text=Check%20Material%20UI%20Dashboard%20made%20by%20%40CreativeTim%20%23webdesign%20%23dashboard%20%23bootstrap5&amp;url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fsoft-ui-dashboard" class="btn btn-dark mb-0 me-2" target="_blank">
+              <i class="fab fa-twitter me-1" aria-hidden="true"></i> Tweet
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/material-dashboard" class="btn btn-dark mb-0 me-2" target="_blank">
+              <i class="fab fa-facebook-square me-1" aria-hidden="true"></i> Share
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  <style>
+    .primeiro{
+      display: flex;
+      width: 100%;
+      height: 400px;
+      align-items: baseline;
+      margin-top: 25px;
+      margin-bottom: 25px;
+    }
+    .orçamento{
+      display: flex;
+      flex-direction: column;
+
+    }
+    
+    #etapastimeline{
+      width: 100%;
+
+    }
+    .texto{
+      text-align: center;
+    }
+    .segundo{
+      display: flex;
+       width: 100%;
+      height: 400px;
+      margin-bottom: 25px;
+      }
+    #graficoCustos{
+      width: 100%;
+      height: 100%;
+    }
+    #grafico-etapas{
+      width: 100%;
+      height: 100%;
+    }
+    #graficoTempo{
+      margin-top: 25px;
+      margin-bottom: 25px;
+    }
+  </style>
+<script src="../elementosjs/assets/js/core/popper.min.js"></script>
+    <script src="../elementosjs/assets/js/core/bootstrap.min.js"></script>
+    <script src="../elementosjs/assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="../elementosjs/assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script>
+      var win = navigator.platform.indexOf('Win') > -1;
+      if (win && document.querySelector('#sidenav-scrollbar')) {
+        var options = {
+          damping: '0.5'
+        }
+        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+      }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="../elementosjs/assets/js/material-dashboard.min.js?v=3.1.0"></script>
 
 
-</div>
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+
 <script>
-    const split_url = window.location.href.split('/')
-            const current_project = split_url[4]
+  
+  const split_url = window.location.href.split('/');
+  const current_project = split_url[4];
 
-
-            var xmlhttp = new XMLHttpRequest();
+    var xmlhttp = new XMLHttpRequest();
     var url = `/projectapi/${current_project}`;
 
     xmlhttp.onreadystatechange = function() {
@@ -20,52 +305,430 @@
     };
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
+  function myFunction(respostaApi) {
+    console.log(respostaApi);
+    const infoProjeto = JSON.parse(respostaApi);
+ 
+    var nomeProjeto = infoProjeto.projeto.nome;
 
-    function myFunction(respostaApi) {
-        console.log(respostaApi)
-        const infoRiomar = JSON.parse(respostaApi)
-        console.log(infoRiomar.materiais.length)
-        var NomesMateriais = []
-        var QuantidadeMateriais = []
-        
-            for(let i = 0 ; i < infoRiomar.materiais.length; i++){
-              QuantidadeMateriais.push(infoRiomar.materiais[i].quantidade)
-              NomesMateriais.push(infoRiomar.materiais[i].nome)
-            }
-        console.log(QuantidadeMateriais);    
-        console.log(NomesMateriais);
+    // Selecionando o elemento h1 com o ID "nomeProjeto"
+    var elementoNomeProjeto = document.getElementById("nomeProjeto");
 
-
-        var MateriasGrafico = {
-          series: [{
-          data: [QuantidadeMateriais[0], QuantidadeMateriais[1], QuantidadeMateriais[2],QuantidadeMateriais[3],]
-        }],
-          chart: {
-          type: 'line',
-          height: 350
-        },
-        plotOptions: {
-          bar: {
-            borderRadius: 20,
-            horizontal: false,
-  
-          }
-        },
-        dataLabels: {
-          enabled: false,
-        },
-        xaxis: {
-          categories: NomesMateriais,
-          
-        }
-        };
-
-
-
-        var chart = new ApexCharts(document.querySelector("#teste"), MateriasGrafico);
-        chart.render();
-
-
+    // Verificando se o elemento foi encontrado
+    if (elementoNomeProjeto) {
+      // Inserindo o nome do projeto no conteúdo do elemento
+      elementoNomeProjeto.innerHTML = `<h1>${nomeProjeto}</h1>`;
     }
 
-    </script>
+    var encarregado = infoProjeto.projeto.encarregado;
+    var dataInicio = infoProjeto.projeto.data_inicio;
+    var dataConclusaoPrevista = infoProjeto.projeto.data_conclusão_prevista;
+    var etapaAtual = infoProjeto.projeto.nível_conclusão.etapa;
+    var porcentagemConclusao = infoProjeto.projeto.nível_conclusão.percentual_concluído;
+
+    // Selecionando os elementos da tabela
+    var elementoEncarregado = document.getElementById("encarregado");
+    var elementoDataInicio = document.getElementById("dataInicio");
+    var elementoDataConclusaoPrevista = document.getElementById("dataConclusaoPrevista");
+    var elementoEtapaAtual = document.getElementById("etapaAtual");
+    var elementoPorcentagemConclusao = document.getElementById("porcentagemConclusao");
+
+    
+
+    // Verificando se os elementos foram encontrados
+    if (elementoEncarregado) {
+      elementoEncarregado.innerHTML = encarregado;
+    }
+    if (elementoDataInicio) {
+      elementoDataInicio.innerHTML = dataInicio;
+    }
+    if (elementoDataConclusaoPrevista) {
+      elementoDataConclusaoPrevista.innerHTML = dataConclusaoPrevista;
+    }
+    if (elementoEtapaAtual) {
+      elementoEtapaAtual.innerHTML = etapaAtual;
+    }
+    if (elementoPorcentagemConclusao) {
+      elementoPorcentagemConclusao.innerHTML = porcentagemConclusao + "%";
+    }
+
+    var nomeCliente = infoProjeto.clientes.nome_cliente;
+    var contatoCliente = infoProjeto.clientes.contato_cliente;
+    var telefoneCliente = infoProjeto.clientes.telefone_cliente;
+    var emailCliente = infoProjeto.clientes.email_cliente;
+
+    var elementoNomeCliente = document.getElementById("nomeCliente");
+    var elementoContatoCliente = document.getElementById("contatoCliente");
+    var elementoTelefoneCliente = document.getElementById("telefoneCliente");
+    var elementoEmailCliente = document.getElementById("emailCliente");
+
+    if (elementoNomeCliente) {
+      elementoNomeCliente.innerHTML = nomeCliente;
+    }
+    if (elementoContatoCliente) {
+      elementoContatoCliente.innerHTML = contatoCliente;
+    }
+    if (elementoTelefoneCliente) {
+      elementoTelefoneCliente.innerHTML = telefoneCliente;
+    }
+    if (elementoEmailCliente) {
+      elementoEmailCliente.innerHTML = emailCliente;
+    }
+
+
+// Função para contar o número de etapas em cada estado (atrasadas, antecipadas, em andamento)
+function contarEtapasPorEstado(infoProjeto) {
+  const prazos = infoProjeto.projeto.prazos;
+
+  let etapasAtrasadas = 0;
+  let etapasAntecipadas = 0;
+  let etapasEmAndamento = 0;
+
+  for (const prazo of prazos) {
+    switch (prazo.cumprimento_prazo) {
+      case "Atrasado":
+        etapasAtrasadas++;
+        break;
+      case "Antecipado":
+        etapasAntecipadas++;
+        break;
+      case "Em andamento":
+        etapasEmAndamento++;
+        break;
+      default:
+        break;
+    }
+  }
+
+  return { etapasAtrasadas, etapasAntecipadas, etapasEmAndamento };
+}
+
+// Chama a função para contar as etapas em cada estado
+const { etapasAtrasadas, etapasAntecipadas, etapasEmAndamento } = contarEtapasPorEstado(infoProjeto);
+
+// Configuração do gráfico de donut
+var DistribuicaoEtapasGrafico = {
+  series: [etapasAtrasadas, etapasAntecipadas, etapasEmAndamento],
+  chart: {
+    type: 'donut',
+    height: 350
+  },
+  labels: ['Etapas Atrasadas', 'Etapas Antecipadas', 'Etapas Em Andamento'],
+  colors: ['#FF4560', '#00D8B6', '#775DD0'],  // Cores para etapas atrasadas, antecipadas e em andamento
+  dataLabels: {
+    enabled: true,
+    formatter: function (val) {
+      return val.toFixed(2) + "%";
+    }
+  },
+  title: {
+    text: 'Distribuição de Etapas'
+  }
+};
+
+// Renderizar o Gráfico Donut na div "grafico-donut"
+var donutChartEtapas = new ApexCharts(document.querySelector("#grafico-etapas"), DistribuicaoEtapasGrafico);
+donutChartEtapas.render();
+
+    // Gráfico de Área 1 (Orçamento Inicial)
+    var sparklineData1 = [infoProjeto.projeto.orçamento_inicial];
+    var spark1 = {
+      chart: {
+        id: 'sparkline1',
+        group: 'sparklines',
+        type: 'area',
+        height: 160,
+        sparkline: {
+          enabled: true
+        },
+      },
+      stroke: {
+        curve: 'straight'
+      },
+      fill: {
+        opacity: 1,
+      },
+      series: [{
+        name: 'Orçamento Inicial',
+        data: sparklineData1
+      }],
+      labels: ['Orçamento Inicial'],
+      yaxis: {
+        min: 0
+      },
+      xaxis: {
+        type: 'category',
+      },
+      colors: ['#DCE6EC'],
+      title: {
+        text: `$${sparklineData1[0].toFixed(2)}`,
+        offsetX: 30,
+        style: {
+          fontSize: '24px',
+          cssClass: 'apexcharts-yaxis-title'
+        }
+      },
+      subtitle: {
+        text: 'Orçamento Inicial',
+        offsetX: 30,
+        style: {
+          fontSize: '14px',
+          cssClass: 'apexcharts-yaxis-title'
+        }
+      }
+    };
+
+    // Renderizar o Gráfico de Área 1 na div "sparkline1"
+    var chartSpark1 = new ApexCharts(document.querySelector("#sparkline1"), spark1);
+    chartSpark1.render();
+
+    // Gráfico de Área 2 (Orçamento Atual)
+    var sparklineData2 = [infoProjeto.projeto.orçamento_atual];
+    var spark2 = {
+      chart: {
+        id: 'sparkline2',
+        group: 'sparklines',
+        type: 'area',
+        height: 160,
+        sparkline: {
+          enabled: true
+        },
+      },
+      stroke: {
+        curve: 'straight'
+      },
+      fill: {
+        opacity: 1,
+      },
+      series: [{
+        name: 'Orçamento Atual',
+        data: sparklineData2
+      }],
+      labels: ['Orçamento Atual'],
+      yaxis: {
+        min: 0
+      },
+      xaxis: {
+        type: 'category',
+      },
+      colors: ['#DCE6EC'],
+      title: {
+        text: `$${sparklineData2[0].toFixed(2)}`,
+        offsetX: 30,
+        style: {
+          fontSize: '24px',
+          cssClass: 'apexcharts-yaxis-title'
+        }
+      },
+      subtitle: {
+        text: 'Orçamento Atual',
+        offsetX: 30,
+        style: {
+          fontSize: '14px',
+          cssClass: 'apexcharts-yaxis-title'
+        }
+      }
+    };
+
+    // Renderizar o Gráfico de Área 2 na div "sparkline2"
+    var chartSpark2 = new ApexCharts(document.querySelector("#sparkline2"), spark2);
+    chartSpark2.render(); 
+    const dadosEtapas = [];
+
+    // Itere sobre as etapas do projeto
+    infoProjeto.projeto.prazos.forEach(etapa => {
+      // Crie um objeto para representar a etapa
+      const etapaData = {
+        x: `Etapa: ${etapa.etapa}`, // Nome da etapa com o prefixo "Etapa: "
+        y: [
+          new Date(etapa.data_início).getTime(), // Data de início
+          new Date(etapa.data_conclusão_prevista).getTime() // Data de conclusão prevista
+        ]
+      };
+
+      // Adicione os dados da etapa ao array
+      dadosEtapas.push(etapaData);
+    });
+
+    // Configure as opções do gráfico
+    const options = {
+      series: [
+        {
+          data: dadosEtapas // Use os dados das etapas aqui
+        }
+      ],
+      chart: {
+        height: 350,
+        type: 'rangeBar',
+        width: '100%'
+      },
+      plotOptions: {
+        bar: {
+          horizontal: true
+        }
+      },
+      xaxis: {
+        type: 'datetime'
+      },
+      title: {
+        text: 'Duração prevista das etapas', // Adicione o título aqui
+        align: 'center',
+        margin: 10,
+        style: {
+          fontSize: '18px'
+        }
+      }
+    };
+
+    // Renderize o gráfico
+    const chartEtapas = new ApexCharts(document.querySelector("#etapastimeline"), options);
+    chartEtapas.render();
+
+   var CustoPlanejado = [];
+var CustoReal = []; // Alterado o nome da variável
+var Etapas = [];
+
+// Preenchendo os arrays com os dados das etapas e custos
+infoProjeto.projeto.prazos.forEach(function(prazo) {
+  CustoPlanejado.push(prazo.custo_planejado);
+  CustoReal.push(prazo.custo_atual); // Alterado o nome da variável
+  Etapas.push(prazo.etapa);
+});
+
+// Configurações para o Gráfico de Colunas (Custo Planejado e Custo Real)
+var  graficoCustoOptions = {
+  series: [
+    {
+      name: 'Custo Planejado',
+      data: CustoPlanejado
+    },
+    {
+      name: 'Custo Real',
+      data: CustoReal
+    }
+  ],
+  chart: {
+    height: 350,
+    type: 'bar'
+  },
+  plotOptions: {
+    bar: {
+      columnWidth: '40%'
+    }
+  },
+  colors: ['#FF4560', '#775DD0'],
+  dataLabels: {
+    enabled: false
+  },
+  xaxis: {
+    categories: Etapas
+  },
+  legend: {
+    show: true,
+    showForSingleSeries: true,
+    customLegendItems: ['Custo Planejado', 'Custo Real'],
+    markers: {
+      fillColors: ['#FF4560', '#775DD0']
+    }
+  }
+};
+
+var graficoCusto = new ApexCharts(document.querySelector("#graficoDonut-custo"), graficoCustoOptions);
+graficoCusto.render();
+
+var TempoPlanejado = [];
+var TempoReal = [];
+var Etapas = [];
+
+// Preenchendo os arrays com os dados das etapas e tempos
+infoProjeto.projeto.prazos.forEach(function(prazo) {
+  TempoPlanejado.push(prazo.tempo_planejado);
+  TempoReal.push(prazo.tempo_atual);
+  Etapas.push(prazo.etapa);
+});
+
+// Configurações para o Gráfico de Colunas (Tempo Planejado e Tempo Real)
+var graficoTempoOptions = {
+  series: [
+    {
+      name: 'Tempo Planejado',
+      data: TempoPlanejado
+    },
+    {
+      name: 'Tempo Real',
+      data: TempoReal
+    }
+  ],
+  chart: {
+    height: 350,
+    type: 'bar'
+  },
+  plotOptions: {
+    bar: {
+      columnWidth: '40%'
+    }
+  },
+  colors: ['#008FFB', '#00E396'],
+  dataLabels: {
+    enabled: false
+  },
+  xaxis: {
+    categories: Etapas
+  },
+  legend: {
+    show: true,
+    showForSingleSeries: true,
+    customLegendItems: ['Tempo Planejado', 'Tempo Real'],
+    markers: {
+      fillColors: ['#008FFB', '#00E396']
+    }
+  }
+};
+
+var graficoTempo = new ApexCharts(document.querySelector("#graficoTempo"), graficoTempoOptions);
+graficoTempo.render();
+
+var custosMaoDeObra = infoProjeto.custos.mão_de_obra;
+var custosEquipamentos = infoProjeto.custos.equipamentos;
+var outrosCustos = infoProjeto.custos.outros_custos;
+
+// Configurações para o Gráfico de Pizza (Custos)
+var graficoCustosOptions = {
+  series: [custosMaoDeObra, custosEquipamentos, outrosCustos],
+  chart: {
+    width: '80%',
+    type: 'pie',
+  },
+  labels: ['Mão de Obra', 'Equipamentos', 'Outros Custos'],
+  theme: {
+    monochrome: {
+      enabled: true
+    }
+  },
+  plotOptions: {
+    pie: {
+      dataLabels: {
+        offset: -5
+      }
+    }
+  },
+  title: {
+    text: 'Distribuição dos Custos'
+  },
+  dataLabels: {
+    formatter(val, opts) {
+      const name = opts.w.globals.labels[opts.seriesIndex]
+      return [name, val.toFixed(1) + '%']
+    }
+  },
+  legend: {
+    show: true,
+    position: 'bottom'
+  }
+};
+
+var graficoCustos = new ApexCharts(document.querySelector('#graficoCustos'), graficoCustosOptions);
+graficoCustos.render();
+
+  }
+</script>

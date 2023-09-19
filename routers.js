@@ -198,8 +198,15 @@ app.get('/projects/:name', auth_mid,  function(req, res) {
     console.log('======================================')
     
     const parsea_projeto = json_parser(path.join(__dirname, `/fake_db/project_info/${req.url.split('/')[2]}.json`))
+    console.log('=====================================')
+    console.log(parsea_projeto)
+    console.log('=====================================')
+    materiais = []
+    for(let i=0; i<parsea_projeto.materiais.length; i++){
+        materiais.push(parsea_projeto.materiais[i].nome)
+    }
     if(parsea_projeto != null){
-        res.render('project_dashboard')
+        res.render('project_dashboard', {nome: parsea_projeto.encarregado, current_project: req.url.split('/')[2]})
         return
     }
     res.sendFile(path.join(__dirname, '/templates/template_boot/404.html'));
@@ -257,6 +264,23 @@ app.get('/add-project', function(req, res) {
     res.sendFile(path.join(__dirname, '/views/add-project.html'));
 });
   
+app.get('/userapi', 
+ function(req, res) {
+    const file_json = fs.readFile(path.join(__dirname, `/fake_db/user_info/${req.session.username}.json`), "utf-8", (err, jsonString) => {
+        if (err) {
+          console.log("File read failed:", err);
+          res.send("Falha de autenticação")
+          return
+        }
+        console.log("File data:", jsonString);
+        const to_string_json = JSON.parse(jsonString)
+        console.log(to_string_json)
+
+       
+        res.json(jsonString)
+        
+      })
+    });
 
 // route css elements from template
 app.use('/elementoscss', rota_css)
@@ -264,9 +288,6 @@ app.use('/elementoscss', rota_css)
 //route js elements from template
 app.use('/elementosjs', rota_js)
 app.use('/ajax', rota_ajax)
-
-
-
 //session middleware
 
 app.use(formidable())

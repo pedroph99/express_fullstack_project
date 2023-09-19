@@ -1,3 +1,252 @@
 <div class="row" id="projetos">
-    <h1>Teste pedrinho</h1>
+    
+    
+    <div class="mensagemRank" id="mensagem ranking">
+      
+      </div>
+     
+      <div class="grafico2" id="GraficoDeColunas">
+      
+      <h2>Informações do Usuário</h2>
+      <h> Nota por parâmetro <br> <br> </h>
+    </div>  
+
+    <div class="grafico3" id="GraficoDeParticipacao">
+      <h2> Participação do Usuario na Empresa </h2>
+    </div>
+   
+    <div class="grafico" id="GraficoDeLinhas">
+      <h2>Horas Extras Realizadas</h2>
+    </div>
+  
+    <style>
+
+     .grafico2 {
+      text-align: center; /* Alinha o texto no centro horizontalmente */
+      }
+      .grafico{
+        float:right;
+        width:60%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        
+      }
+
+      .GraficoDeLinhas {
+        text-align: center;
+      }
+      .grafico3{
+        float:left;
+        width:40%;
+        text-align: center;
+         display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        
+      }
+      .mensagemRank{
+        font-size:100%;
+      }
+      
+
+    </style>
+
+    <script>
+
+      var url = '/userapi/'; //url das informações do usuario
+      
+      var xmlhttp = new XMLHttpRequest();         
+      xmlhttp.open('GET',url, true);              //config. da requisição XMLHTTP
+
+      xmlhttp.onreadystatechange = function() {    //função que vai checar se ta tudo certo e se estiver coleta e processa os dados
+        if (this.readyState == 4 && this.status == 200) {
+          var DadosColetados = JSON.parse(this.responseText);
+          processamento(DadosColetados);                 //chamada da função que vai processar os dados coletados (declarada mais a frente no código)
+        }
+      };
+      xmlhttp.send();                                      //envio dos dados requisitados
+
+      function processamento(dados){
+        const DadosUsuario = JSON.parse(dados);
+        console.log(DadosUsuario);
+        const quantidadeItensNoRanking = Object.keys(DadosUsuario.ranking).length; //criando uma constante e colocando a quantidade de chaves do ranking
+        console.log(quantidadeItensNoRanking); 
+        
+        var nomesItensRanking = []; //nome das chaves
+        var valoresItensRanking = []; //notas
+
+        // Adiciona as chaves individualmente ao array nomesItensRanking
+        Object.keys(DadosUsuario.ranking).forEach(function(chave) {
+        nomesItensRanking.push(chave);
+        });
+
+        // Adiciona os valores ao array valoresItensRanking
+        valoresItensRanking = Object.values(DadosUsuario.ranking);  
+        
+        console.log(nomesItensRanking);
+        console.log(valoresItensRanking);
+    
+        //grafico de colunas
+        var colunas = {
+            series: [{
+            name: 'nota',
+            data: valoresItensRanking.slice(0, 9)
+          }],
+            chart: {
+            height: 350,
+            type: 'bar',
+          },
+          plotOptions: {
+            bar: {
+              borderRadius: 10,
+              dataLabels: {
+                position: 'top', // top, center, bottom
+              },
+            }
+          },
+          dataLabels: {
+            enabled: true,
+            formatter: function (val) {
+              return val;
+            },
+            offsetY: -20,
+            style: {
+              fontSize: '14px',
+              colors: ["#304758"]
+            }
+          },
+          
+          xaxis: {
+            categories: nomesItensRanking.slice(0, 9),
+            position: 'top',
+            axisBorder: {
+              show: false
+            },
+            axisTicks: {
+              show: false
+            },
+            crosshairs: {
+              fill: {
+                type: 'gradient',
+                gradient: {
+                  colorFrom: '#D8E3F0',
+                  colorTo: '#BED1E6',
+                  stops: [0, 100],
+                  opacityFrom: 0.4,
+                  opacityTo: 0.5,
+                }
+              }
+            },
+            tooltip: {
+              enabled: true,
+            }
+          },
+          yaxis: {
+            max: 10,
+            axisBorder: {
+              show: false
+            },
+            axisTicks: {
+              show: false,
+            },
+            labels: {
+              show: false,
+              formatter: function (val) {
+                return val ;
+              }
+            }
+          
+          },
+          };
+
+          var chart = new ApexCharts(document.querySelector("#GraficoDeColunas"), colunas);
+          chart.render();
+
+        var somaValores = valoresItensRanking.slice(0, 9).reduce(function (a, b) {
+        return a + b;
+        }, 0);                //criando o rank
+
+        var ranking = '';
+        if (somaValores >= 90) {
+          ranking = 'S (Superior)';
+        } else if (somaValores >= 80) {
+          ranking = 'A (Excelente)';
+        } else if (somaValores >= 70) {
+          ranking = 'B (Bom)';
+        } else if (somaValores >= 60) {
+          ranking = 'C (Satisfatório)';
+        } else if (somaValores >= 50) {
+          ranking = 'D (Abaixo da Média)';
+        } else {
+          ranking = 'E (Insatisfatório)';
+        }
+
+        var mensagemRankingDiv = document.getElementById('mensagem ranking');
+        mensagemRankingDiv.innerHTML = '<h2> Sua classificação é:</h2><br>' + ranking + '<br><br>';
+        
+
+        //grafico de linhas
+        var linhas = {
+        series: [
+          {
+            name: "Horas Extras",
+            data: Object.values(DadosUsuario.horas_extras)
+          }
+        ],
+        chart: {
+          height: 350,
+          type: 'line',
+          zoom: {
+            enabled: false
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'smooth'
+        },
+        grid: {
+          row: {
+            colors: ['#f3f3f3', 'transparent'],
+            opacity: 0.5
+          },
+        },
+        xaxis: {
+          categories: Object.keys(DadosUsuario.horas_extras)
+        }
+      };
+
+      var chartLinhas = new ApexCharts(document.querySelector("#GraficoDeLinhas"), linhas);
+      chartLinhas.render();
+
+      // Gráfico de pizza de Participação 
+      var PizzaParticipacaoMercado = {
+        series: Object.values(DadosUsuario.participacao_mercado_anual['2023']), // Valores das fatias para o mês de janeiro
+        labels: Object.keys(DadosUsuario.participacao_mercado_anual['2023']), // Rótulos das fatias
+        chart: {
+          type: 'pie', // Tipo de gráfico de pizza
+          height: 350,
+        },
+        dataLabels: {
+          enabled: true, // Exibir rótulos de dados dentro das fatias
+        },
+        legend: {
+          position: 'bottom', // Posição da legenda
+        },
+        tooltip: {
+          enabled: true, // Exibir dicas de ferramentas
+        },
+      };
+
+      var chartPizza = new ApexCharts(document.querySelector("#GraficoDeParticipacao"), PizzaParticipacaoMercado);
+      chartPizza.render(); // Renderiza o gráfico de pizza
+      
+      };
+
+    </script>
+   
     </div>
