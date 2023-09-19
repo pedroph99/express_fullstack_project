@@ -12,13 +12,10 @@
       <h> Nota por parâmetro <br> <br> </h>
     </div>  
 
+    <div class="grafico3" id="GraficoDeParticipacao">
+      <h2> Participação do Usuario na Empresa </h2>
     </div>
-    <div class="espaço" id="lista de projetos">
-	
-	    <h2> aqui ficarão as informações dos projetos </h2>
-      <h> exemplos:<br>projeto 1<br>projeto 2<br> projeto3</h>
-
-    </div>
+   
     <div class="grafico" id="GraficoDeLinhas">
       <h2>Horas Extras Realizadas</h2>
     </div>
@@ -32,7 +29,6 @@
       .grafico{
         float:right;
         width:45%;
-
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -43,10 +39,15 @@
       .GraficoDeLinhas {
         text-align: center;
       }
-
-      .espaço{
+      .grafico3{
         float:left;
         width:45%;
+        text-align: center;
+         display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
       }
       
 
@@ -221,11 +222,30 @@
       var chartLinhas = new ApexCharts(document.querySelector("#GraficoDeLinhas"), linhas);
       chartLinhas.render();
 
+      // Gráfico de pizza de Participação 
+      var PizzaParticipacaoMercado = {
+        series: Object.values(DadosUsuario.participacao_mercado_anual['2023']), // Valores das fatias para o mês de janeiro
+        labels: Object.keys(DadosUsuario.participacao_mercado_anual['2023']), // Rótulos das fatias
+        chart: {
+          type: 'pie', // Tipo de gráfico de pizza
+          height: 350,
+        },
+        dataLabels: {
+          enabled: true, // Exibir rótulos de dados dentro das fatias
+        },
+        legend: {
+          position: 'bottom', // Posição da legenda
+        },
+        tooltip: {
+          enabled: true, // Exibir dicas de ferramentas
+        },
       };
 
+      var chartPizza = new ApexCharts(document.querySelector("#GraficoDeParticipacao"), PizzaParticipacaoMercado);
+      chartPizza.render(); // Renderiza o gráfico de pizza
+      
+      };
 
-        
-        
     </script>
    
     </div>

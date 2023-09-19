@@ -34,5 +34,14 @@
         "Out": 8,
         "Nov": 2,
         "Dez": 4
+    },
+    "participacao_mercado_anual": {
+        "2023": {
+          "Obras": 43,
+          "Software": 22,
+          "Pesquisa": 20,
+          "Marketing": 8,
+          "Outras": 7
+        }
+      }
     }
-}
