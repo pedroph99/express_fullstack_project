@@ -10,15 +10,15 @@
     ],
     "ranking": 
         {
-        "Produtividade": 7.5,
-        "Qualidade": 6,
-        "Trabalho Equipe": 8,
-        "Cumprimento Prazos": 7,
-        "Iniciativa": 6,
-        "Gestao de Conflitos": 6,
-        "Treinamento": 8,
-        "EPI": 10,
-        "Feedback": 8
+        "Produtividade": 7,
+        "Qualidade": 8,
+        "Trabalho Equipe": 7,
+        "Cumprimento Prazos": 6,
+        "Iniciativa": 7,
+        "Gestao de Conflitos": 5,
+        "Treinamento": 10,
+        "EPI": 4,
+        "Feedback": 9.2
     },
 
     "horas_extras": {
