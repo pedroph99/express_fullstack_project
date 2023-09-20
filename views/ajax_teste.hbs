@@ -169,24 +169,33 @@
         return a + b;
         }, 0);                //criando o rank
 
+        var mensagemRankingDiv = document.getElementById('mensagem ranking');
+        
+        
         var ranking = '';
         if (somaValores >= 90) {
           ranking = 'S (Superior)';
+          mensagemRankingDiv.style.color = 'purple';
         } else if (somaValores >= 80) {
           ranking = 'A (Excelente)';
+          mensagemRankingDiv.style.color = 'green';
         } else if (somaValores >= 70) {
           ranking = 'B (Bom)';
+          mensagemRankingDiv.style.color = '#006400';
         } else if (somaValores >= 60) {
           ranking = 'C (Satisfatório)';
+          mensagemRankingDiv.style.color = 'blue';
         } else if (somaValores >= 50) {
           ranking = 'D (Abaixo da Média)';
+          mensagemRankingDiv.style.color = 'orange';
         } else {
           ranking = 'E (Insatisfatório)';
+          mensagemRankingDiv.style.color = 'red';
         }
 
-        var mensagemRankingDiv = document.getElementById('mensagem ranking');
         mensagemRankingDiv.innerHTML = '<h2> Sua classificação é:</h2><br>' + ranking + '<br><br>';
-        
+        mensagemRankingDiv.style.fontWeight = 'bold';
+        mensagemRankingDiv.style.fontSize = '1vw';
 
         //grafico de linhas
         var linhas = {
