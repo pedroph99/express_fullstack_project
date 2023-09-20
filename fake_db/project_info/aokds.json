@@ -1,0 +1,24 @@
+{"projeto":{
+  "nome": "aokds",
+  "encarregado": "peri",
+  "bio": "",
+  "materiais": "",
+  "data_inicio": "",
+  "data_prevista": "NaN",
+  "status_atual": "NaN",
+  "orcamento_inicial": "",
+  "orcamento_atual": "",
+  "nome_cliente": "NaN",
+  "telefone_cliente": "NaN",
+  "email_cliente": "NaN"
+},  "custos": {
+            "mão_de_obra": 7500.0,
+            "equipamentos": 3000.0,
+            "outros_custos": 1500.0
+          },
+          "clientes": {
+            "nome_cliente": "JONH DOE DA SILVA",
+            "contato_cliente": "João da Silva",
+            "telefone_cliente": "(XX) XXXX-XXXX",
+            "email_cliente": "SILVA@riomar.com"
+          }}

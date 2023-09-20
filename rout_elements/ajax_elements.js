@@ -26,7 +26,7 @@ rota.get('/ajax_projects', auth_mid,  function(req, res){
         const parsea_projeto = json_parser(path.join(__dirname, `/../fake_db/project_info/${projetos[i]}.json`))
         console.log("testeeeeeeeeeeee_projetos")
         if(parsea_projeto != null){
-            projects_bio.push(parsea_projeto.bio)
+            projects_bio.push(parsea_projeto.projeto.bio)
         }
        
     }

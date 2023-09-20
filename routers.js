@@ -238,6 +238,7 @@ app.get('/projectapi/:nameproject',
 
 //Salva novas obras
 const dataFolder = 'fake_db/project_info/';
+const dataFolderUser = 'fake_db/user_info/';
 if (!fs.existsSync(dataFolder)) {
     fs.mkdirSync(dataFolder);
 }
@@ -245,9 +246,27 @@ app.post('/adicionar-obra', (req, res) => {
     console.log("passou da requisição");
 
     try {
-
+        const  filepath_user = path.join(__dirname,dataFolderUser + `${req.fields.encarregado}.json`);
         const obra = req.fields;
-        console.log(req.fields)
+        console.log(req.fields.encarregado)
+        const file_json = fs.readFile(path.join(__dirname, `/fake_db/user_info/${req.fields.encarregado}.json`), "utf-8", (err, jsonString) => {
+            if (err) {
+              console.log("File read failed:", err);
+
+              return
+            }
+            console.log("File data:", jsonString);
+            const to_string_json = JSON.parse(jsonString)
+            console.log(to_string_json)
+            var new_project = new Object;
+            new_project.nome = req.fields.nome
+            to_string_json.projetos.push(new_project)
+            console.log("TESTANDO JSON AQUI")
+            console.log(JSON.stringify(to_string_json))
+            console.log("TESTANDO JSON AQUI")
+            fs.writeFileSync(filepath_user, JSON.stringify(to_string_json));
+          })
+        
 
         if (!obra.nome) {
             return res.status(400).json({ error: 'Name attribute is required' });
@@ -255,13 +274,26 @@ app.post('/adicionar-obra', (req, res) => {
   
         const obraName = obra.nome.replace(/\s/g, '_').toLowerCase();
         const filename = path.join(__dirname,dataFolder + `${obraName}.json`);
-  
-        fs.writeFileSync(filename, JSON.stringify(obra, null, 2));
+       
+
+        fs.writeFileSync(filename, `{"projeto":${JSON.stringify(obra, null, 2)},  "custos": {
+            "mão_de_obra": 7500.0,
+            "equipamentos": 3000.0,
+            "outros_custos": 1500.0
+          },
+          "clientes": {
+            "nome_cliente": "JONH DOE DA SILVA",
+            "contato_cliente": "João da Silva",
+            "telefone_cliente": "(XX) XXXX-XXXX",
+            "email_cliente": "SILVA@riomar.com"
+          }}`);
   
         res.status(201).json({ message: 'Data saved successfully', filename });
        } catch (error) {
           res.status(500).json({ error: 'Internal server error' });
         }
+
+        
     });
 
 app.get('/add_project',auth_mid,  function(req, res) {
