@@ -1,0 +1,86 @@
+<div div class="row" id="projetos">
+    <h1>Formulário de Dados do Projeto</h1>
+
+    <form id="projetoForm">
+        <fieldset>
+            <label for="nome">Nome do Projeto:</label>
+            <input type="text" id="nome"><br><br>
+
+            <label for="encarregado">Encarregado:</label>
+            <input type="text" id="encarregado"><br><br>
+
+            <label for="bio">Descrição do Projeto:</label><br>
+            <textarea id="bio" rows="4" cols="50"></textarea><br><br>
+
+            <label for="data_inicio">Data de Início:</label>
+            <input type="date" id="data_inicio"><br><br>
+
+            <label for="data_conclusao_prevista">Data de Conclusão Prevista:</label>
+            <input type="date" id="data_conclusao_prevista"><br><br>
+
+            <label for="status_atual">Status Atual:</label>
+            <input type="text" id="status_atual"><br><br>
+
+            <label for="orcamento_inicial">Orçamento Inicial:</label>
+            <input type="number" step="0.01" id="orcamento_inicial"><br><br>
+
+            <label for="orcamento_atual">Orçamento Atual:</label>
+            <input type="number" step="0.01" id="orcamento_atual"><br><br>
+        </fieldset>
+        <fieldset>
+            <legend>Clientes</legend>
+            <label for="nome_cliente">Nome do Cliente:</label>
+            <input type="text" id="nome_cliente"><br><br>
+
+            <label for="contato_cliente">Contato do Cliente:</label>
+            <input type="text" id="contato_cliente"><br><br>
+
+            <label for="telefone_cliente">Telefone do Cliente:</label>
+            <input type="tel" id="telefone_cliente"><br><br>
+
+            <label for="email_cliente">Email do Cliente:</label>
+            <input type="email" id="email_cliente"><br><br>
+        </fieldset>
+        <input type="submit" value="Salvar">
+    </form>
+
+</div>
+    <script>
+        document.getElementById('projetoForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            var nome = document.getElementById('nome').value;
+            
+            var encarregado = document.getElementById('encarregado').value;
+            var bio = document.getElementById('bio').value;
+            var status = document.getElementById('status_atual').value;
+            var orcamento = parseInt(document.getElementById('orcamento').value);
+            var gastoTotal = parseInt(document.getElementById('gastoTotal').value);
+            var localizacao = document.getElementById('localizacao').value;
+            var dataPrevista = document.getElementById('dataPrevista').value;
+            var salarioEngenheiros = parseInt(document.getElementById('salarioEngenheiros').value);
+            var salarioPeoes = parseInt(document.getElementById('salarioPeoes').value);
+            var salarioProjetistas = parseInt(document.getElementById('salarioProjetistas').value);
+        
+            const form = new FormData();
+            form.append('nome', nome);
+            form.append('encarregado', encarregado);
+            form.append('bio', bio);
+            form.append('materiais', []);
+            console.log(form.values)
+            axios.post('/adicionar-obra', form)
+
+                .then(function (response) {
+                    console.log('Requisição enviada com sucesso!', response);
+                })
+                .catch(function (error) {
+                    console.error('Erro ao enviar a requisição:', error);
+                });
+            window.history.back();
+        });
+    </script>
+</body>
+<style>
+
+</style>
+</html>
