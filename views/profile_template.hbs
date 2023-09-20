@@ -35,7 +35,12 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
+                    <a class="nav-link mb-0 px-0 py-1 " 
+                    hx-get="/add_project"
+                    hx-trigger="click"
+                    hx-target="#projetos"
+                    hx-swap="outerHTML"
+                    data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="true">
                       <i class="material-icons text-lg position-relative">email</i>
                       <span class="ms-1">Messages</span>
                     </a>
@@ -65,7 +70,6 @@
               <div class="col-12 mt-4">
                 <div class="mb-5 ps-3">
                   <h6 class="mb-1">Projects</h6>
-                  <button id="addProject">+</button>
                   <p class="text-sm">Architects design houses</p>
                 </div>
                 <div class="row" id="projetos">
@@ -228,8 +232,3 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="../elementosjs/assets/js/material-dashboard.min.js?v=3.1.0"></script>
-    <script>
-      document.getElementById('addProject').addEventListener('click', function() {
-        window.location.href = '/add-project';
-      });
-    </script>

@@ -260,8 +260,8 @@ app.post('/adicionar-obra', (req, res) => {
         }
     });
 
-app.get('/add-project', function(req, res) {
-    res.sendFile(path.join(__dirname, '/views/add-project.html'));
+app.get('/add_project',auth_mid,  function(req, res) {
+    res.render('add-project')
 });
   
 app.get('/userapi', 

@@ -49,33 +49,7 @@
       "percentual_concluído": 100
     }
   },
-  "materiais": [
-    {
-      "nome": "Concreto",
-      "quantidade": 30,
-      "preço_unitário": 50.0
-    },
-    {
-      "nome": "Pás",
-      "quantidade": 25,
-      "preço_unitário": 50.0
-    },
-    {
-      "nome": "Pedregulho",
-      "quantidade": 28,
-      "preço_unitário": 50.0
-    },
-    {
-      "nome": "Hastes",
-      "quantidade": 28,
-      "preço_unitário": 50.0
-    },
-    {
-      "nome": "Tijolo",
-      "quantidade": 58,
-      "preço_unitário": 50.0
-    }
-  ],
+  "materiais": [],
   "custos": {
     "mão_de_obra": 7500.0,
     "equipamentos": 3000.0,
