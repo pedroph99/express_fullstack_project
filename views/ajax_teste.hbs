@@ -1,30 +1,39 @@
 <div class="row" id="projetos">
     
     
-    <div class="mensagemRank" id="mensagem ranking">
-      
-      </div>
+  <div class="mensagemRank" id="mensagem ranking"> </div>
      
-      <div class="grafico2" id="GraficoDeColunas">
-      
+    <div class="colunas" id="GraficoDeColunas">     
       <h2>Informações do Usuário</h2>
       <h> Nota por parâmetro <br> <br> </h>
     </div>  
 
-    <div class="grafico3" id="GraficoDeParticipacao">
+    <div class="participacao" id="GraficoDeParticipacao">
       <h2> Participação do Usuario na Empresa </h2>
     </div>
    
-    <div class="grafico" id="GraficoDeLinhas">
+    <div class="linhas" id="GraficoDeLinhas">
       <h2>Horas Extras Realizadas</h2>
     </div>
   
     <style>
 
-     .grafico2 {
-      text-align: center; /* Alinha o texto no centro horizontalmente */
+     .colunas {
+      text-align: center;
+      align-items: center;
       }
-      .grafico{
+      
+      .participacao{
+        float:left;
+        width:40%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      
+      .linhas{
         float:right;
         width:60%;
         display: flex;
@@ -33,24 +42,26 @@
         align-items: center;
         
       }
+      @media screen and (max-width: 768px) {
+        /* Estilos para dispositivos com largura máxima de 768 pixels (dispositivos móveis) */
 
-      .GraficoDeLinhas {
-        text-align: center;
+        #GraficoDeColunas {
+          font-size: 3vw; 
+        }
+
+        /* Para a div GraficoDeParticipacao */
+        #GraficoDeParticipacao {
+          font-size: 1vw; 
+        }
+
+        #GraficoDeLinhas h2{
+          font-size: 4vw;
+        }
+        #GraficoDeParticipacao h2{
+          font-size: 5vw;
+        }
       }
-      .grafico3{
-        float:left;
-        width:40%;
-        text-align: center;
-         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        
-      }
-      .mensagemRank{
-        font-size:100%;
-      }
-      
+
 
     </style>
 
@@ -72,9 +83,7 @@
       function processamento(dados){
         const DadosUsuario = JSON.parse(dados);
         console.log(DadosUsuario);
-        const quantidadeItensNoRanking = Object.keys(DadosUsuario.ranking).length; //criando uma constante e colocando a quantidade de chaves do ranking
-        console.log(quantidadeItensNoRanking); 
-        
+  
         var nomesItensRanking = []; //nome das chaves
         var valoresItensRanking = []; //notas
 
@@ -161,6 +170,10 @@
           
           },
           };
+          if (window.innerWidth <= 600) { // checagem se a largura da tela for menor ou igual a 600 pixels (dispositivo móvel)
+            
+            colunas.xaxis.categories = ['Prod', 'Quali', 'Equipe', 'Prazos', 'Inici.', 'Conflito', 'Treino', ' EPI', 'Feedback'];
+          }
 
           var chart = new ApexCharts(document.querySelector("#GraficoDeColunas"), colunas);
           chart.render();
@@ -171,32 +184,6 @@
 
         var mensagemRankingDiv = document.getElementById('mensagem ranking');
         
-        
-        var ranking = '';
-        if (somaValores >= 90) {
-          ranking = 'S (Superior)';
-          mensagemRankingDiv.style.color = 'purple';
-        } else if (somaValores >= 80) {
-          ranking = 'A (Excelente)';
-          mensagemRankingDiv.style.color = 'green';
-        } else if (somaValores >= 70) {
-          ranking = 'B (Bom)';
-          mensagemRankingDiv.style.color = '#006400';
-        } else if (somaValores >= 60) {
-          ranking = 'C (Satisfatório)';
-          mensagemRankingDiv.style.color = 'blue';
-        } else if (somaValores >= 50) {
-          ranking = 'D (Abaixo da Média)';
-          mensagemRankingDiv.style.color = 'orange';
-        } else {
-          ranking = 'E (Insatisfatório)';
-          mensagemRankingDiv.style.color = 'red';
-        }
-
-        mensagemRankingDiv.innerHTML = '<h2> Sua classificação é:</h2><br>' + ranking + '<br><br>';
-        mensagemRankingDiv.style.fontWeight = 'bold';
-        mensagemRankingDiv.style.fontSize = '1vw';
-
         //grafico de linhas
         var linhas = {
         series: [
@@ -228,6 +215,10 @@
           categories: Object.keys(DadosUsuario.horas_extras)
         }
       };
+            
+      if (window.innerWidth <= 768) { // verificação se a largura da tela for menor ou igual a 600 pixels (dispositivo móvel)
+        linhas.xaxis.categories = ['J', 'F', 'M', 'A','M','J','J','A','S','O','N','D']; 
+      }
 
       var chartLinhas = new ApexCharts(document.querySelector("#GraficoDeLinhas"), linhas);
       chartLinhas.render();
@@ -251,8 +242,51 @@
         },
       };
 
+      if (window.innerWidth <= 600) { // checagem se a largura da tela for menor ou igual a 600 pixels (dispositivo móvel)
+            
+            PizzaParticipacaoMercado.dataLabels.enabled = false;
+          }
+
       var chartPizza = new ApexCharts(document.querySelector("#GraficoDeParticipacao"), PizzaParticipacaoMercado);
       chartPizza.render(); // Renderiza o gráfico de pizza
+
+              var somaValores = valoresItensRanking.slice(0, 9).reduce(function (a, b) {
+        return a + b;
+        }, 0);                //criando o rank
+
+        var mensagemRankingDiv = document.getElementById('mensagem ranking');   
+
+        var ranking = '';
+        if (somaValores >= 90) {
+          ranking = 'S (Superior)';
+          mensagemRankingDiv.style.color = 'purple';
+        } else if (somaValores >= 80) {
+          ranking = 'A (Excelente)';
+          mensagemRankingDiv.style.color = 'green';
+        } else if (somaValores >= 70) {
+          ranking = 'B (Bom)';
+          mensagemRankingDiv.style.color = '#006400';
+        } else if (somaValores >= 60) {
+          ranking = 'C (Satisfatório)';
+          mensagemRankingDiv.style.color = 'blue';
+        } else if (somaValores >= 50) {
+          ranking = 'D (Abaixo da Média)';
+          mensagemRankingDiv.style.color = 'orange';
+        } else {
+          ranking = 'E (Insatisfatório)';
+          mensagemRankingDiv.style.color = 'red';
+        }
+
+        mensagemRankingDiv.innerHTML = '<h2> Sua classificação é:</h2><br>' + ranking + '<br><br>';
+        mensagemRankingDiv.style.fontWeight = 'bold';
+        var mq = window.matchMedia('(max-width: 600px)'); 
+
+        if (mq.matches) {
+          mensagemRankingDiv.style.fontSize = '3vw'; // Define o tamanho da fonte em 3vw para dispositivos móveis
+        } 
+        else {
+          mensagemRankingDiv.style.fontSize = '1.5vw'; // Define o tamanho da fonte em 1vw para outras telas
+        }
       
       };
 
