@@ -15,8 +15,8 @@
             <label for="data_inicio">Data de Início:</label>
             <input type="date" id="data_inicio"><br><br>
 
-            <label for="data_conclusao_prevista">Data de Conclusão Prevista:</label>
-            <input type="date" id="data_conclusao_prevista"><br><br>
+            <label for="data_prevista">Data de Conclusão Prevista:</label>
+            <input type="date" id="data_prevista"><br><br>
 
             <label for="status_atual">Status Atual:</label>
             <input type="text" id="status_atual"><br><br>
@@ -53,20 +53,30 @@
             var nome = document.getElementById('nome').value;
             var encarregado = document.getElementById('encarregado').value;
             var bio = document.getElementById('bio').value;
-            var status = document.getElementById('status').value;
-            var orcamento = parseInt(document.getElementById('orcamento').value);
-            var gastoTotal = parseInt(document.getElementById('gastoTotal').value);
-            var localizacao = document.getElementById('localizacao').value;
-            var dataPrevista = document.getElementById('dataPrevista').value;
-            var salarioEngenheiros = parseInt(document.getElementById('salarioEngenheiros').value);
-            var salarioPeoes = parseInt(document.getElementById('salarioPeoes').value);
-            var salarioProjetistas = parseInt(document.getElementById('salarioProjetistas').value);
+            var data_inicio = document.getElementById('data_inicio').value;
+            var data_prevista = parseInt(document.getElementById('data_prevista').value);
+            var status_atual = parseInt(document.getElementById('status_atual').value);
+            var orcamento_inicial = document.getElementById('orcamento_inicial').value;
+            var orcamento_atual = document.getElementById('orcamento_atual').value;
+
+            var nome_cliente = parseInt(document.getElementById('nome_cliente').value);
+            var contato_cliente = parseInt(document.getElementById('contato_cliente').value);
+            var telefone_cliente = parseInt(document.getElementById('telefone_cliente').value);
+            var email_cliente = parseInt(document.getElementById('email_cliente').value);
         
             const form = new FormData();
             form.append('nome', nome);
             form.append('encarregado', encarregado);
             form.append('bio', bio);
             form.append('materiais', []);
+            form.append('data_inicio', data_inicio);
+            form.append('data_prevista', data_prevista);
+            form.append('status_atual', status_atual);
+            form.append('orcamento_inicial', orcamento_inicial);
+            form.append('orcamento_atual', orcamento_atual);
+            form.append('nome_cliente', nome_cliente);
+            form.append('telefone_cliente', telefone_cliente);
+            form.append('email_cliente', email_cliente);
             console.log(form.values)
             axios.post('/adicionar-obra', form)
 
@@ -76,7 +86,6 @@
                 .catch(function (error) {
                     console.error('Erro ao enviar a requisição:', error);
                 });
-            window.history.back();
         });
     </script>
 </body>
