@@ -5,9 +5,11 @@ const auth_mid = require('../funcs/login_req')
 const json_parser = require('../funcs/get_json_string')
 rota.get('/testeajax',auth_mid,  function(req, res) {
     res.render('ajax_teste')
-
-
 });
+rota.get('/ajaxmessages',auth_mid,  function(req, res) {
+    res.render('ajax_messages')
+});
+
 
 rota.get('/ajax_projects', auth_mid,  function(req, res){
     const teste = json_parser(path.join(__dirname, `../fake_db/user_info/${req.session.username}.json`))

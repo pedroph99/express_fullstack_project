@@ -20,6 +20,8 @@ const json_parser = require('./funcs/get_json_string.js')
 //Template engine para manipularmos os dados.
 const exphbs = require('express-handlebars')
 
+const bodyParser = require('body-parser');
+
 
 const rota_css = require('./rout_elements/css_elements.js')
 const rota_js =  require('./rout_elements/js_elements.js')
@@ -32,7 +34,8 @@ app.listen(port, () => console.log(`Express app running on port ${port}!`));
 app.engine('hbs', exphbs.engine({extname: '.hbs',defaultLayout: "main"}));
 // define qual o template a ser utilizado
 app.set('view engine', 'hbs');
-
+app.use(bodyParser.json());
+app.use(formidable());
 // HTML files from template
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, '/templates/template_boot/home.html'));
@@ -189,8 +192,10 @@ app.get('/logout', function(req,res){
 app.get('/testeajax',auth_mid,  function(req, res) {
     
     res.render('ajax_teste')
-
-
+});
+app.get('/ajaxmessages', function(req, res) {
+    
+    res.render('ajax_messages')
 });
 
 // Páginas de projetos. Essas páginas nos levará a projetos que existem através de parâmetros. É preciso ser encarregado.
@@ -229,9 +234,40 @@ app.get('/projectapi/:nameproject',
       })
     
     
-}
+});
 
-);
+//Salva novas obras
+const dataFolder = 'fake_db/project_info/';
+if (!fs.existsSync(dataFolder)) {
+    fs.mkdirSync(dataFolder);
+}
+app.post('/adicionar-obra', (req, res) => {
+    console.log("passou da requisição");
+
+    try {
+
+        const obra = req.fields;
+        console.log(req.fields)
+
+        if (!obra.nome) {
+            return res.status(400).json({ error: 'Name attribute is required' });
+        }
+  
+        const obraName = obra.nome.replace(/\s/g, '_').toLowerCase();
+        const filename = path.join(__dirname,dataFolder + `${obraName}.json`);
+  
+        fs.writeFileSync(filename, JSON.stringify(obra, null, 2));
+  
+        res.status(201).json({ message: 'Data saved successfully', filename });
+       } catch (error) {
+          res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+app.get('/add_project',auth_mid,  function(req, res) {
+    res.render('add-project')
+});
+  
 app.get('/userapi', 
  function(req, res) {
     const file_json = fs.readFile(path.join(__dirname, `/fake_db/user_info/${req.session.username}.json`), "utf-8", (err, jsonString) => {
@@ -249,6 +285,7 @@ app.get('/userapi',
         
       })
     });
+
 // route css elements from template
 app.use('/elementoscss', rota_css)
 
@@ -258,7 +295,3 @@ app.use('/ajax', rota_ajax)
 //session middleware
 
 app.use(formidable())
-
-
-
-
