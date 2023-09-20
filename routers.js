@@ -168,6 +168,7 @@ app.get('/home_page_login',auth_mid,  function(req, res) {
         const parsea_projeto = json_parser(path.join(__dirname, `/fake_db/project_info/${projetos[i]}.json`))
         console.log("testeeeeeeeeeeee_projetos")
         if(parsea_projeto != null){
+            console.log(parsea_projeto.projeto.bio)
             projects_bio.push(parsea_projeto.projeto.bio)
             
         }
