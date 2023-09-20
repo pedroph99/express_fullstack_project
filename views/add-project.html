@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Dados do Projeto</title>
+</head>
+<body>
+    <h1>Formulário de Dados do Projeto</h1>
+
+    <form id="projetoForm">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome"><br><br>
+
+        <label for="encarregado">Encarregado:</label>
+        <input type="text" id="encarregado" name="encarregado"><br><br>
+
+        <label for="bio">Bio:</label>
+        <textarea id="bio" name="bio"></textarea><br><br>
+
+        <label for="status">Status:</label>
+        <input type="text" id="status" name="status"><br><br>
+
+        <label for="orcamento">Orçamento:</label>
+        <input type="number" id="orcamento" name="orcamento"><br><br>
+
+        <label for="gastoTotal">Gasto Total:</label>
+        <input type="number" id="gastoTotal" name="gastoTotal"><br><br>
+
+        <label for="localizacao">Localização:</label>
+        <input type="text" id="localizacao" name="localizacao"><br><br>
+
+        <label for="dataPrevista">Data Prevista:</label>
+        <input type="date" id="dataPrevista" name="dataPrevista"><br><br>
+
+        <h2>Gasto com Funcionários:</h2>
+        <label for="salarioEngenheiros">Salário Engenheiros:</label>
+        <input type="number" id="salarioEngenheiros" name="salarioEngenheiros"><br><br>
+
+        <label for="salarioPeoes">Salário Peões:</label>
+        <input type="number" id="salarioPeoes" name="salarioPeoes"><br><br>
+
+        <label for="salarioProjetistas">Salário Projetistas:</label>
+        <input type="number" id="salarioProjetistas" name="salarioProjetistas"><br><br>
+
+        <button id="submitBuutton" href="./profile_template.hbs">Enviar</button>
+    </form>
+
+    <div id="resultado"></div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.getElementById('projetoForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            var nome = document.getElementById('nome').value;
+            var encarregado = document.getElementById('encarregado').value;
+            var bio = document.getElementById('bio').value;
+            var status = document.getElementById('status').value;
+            var orcamento = parseInt(document.getElementById('orcamento').value);
+            var gastoTotal = parseInt(document.getElementById('gastoTotal').value);
+            var localizacao = document.getElementById('localizacao').value;
+            var dataPrevista = document.getElementById('dataPrevista').value;
+            var salarioEngenheiros = parseInt(document.getElementById('salarioEngenheiros').value);
+            var salarioPeoes = parseInt(document.getElementById('salarioPeoes').value);
+            var salarioProjetistas = parseInt(document.getElementById('salarioProjetistas').value);
+        
+            var projetoData = {
+                "nome": nome,
+                "encarregado": encarregado,
+                "bio": bio,
+                "status": status,
+                "orçamento": orcamento,
+                "gasto total": gastoTotal,
+                "localização": localizacao,
+                "data_prevista": dataPrevista,
+                "gasto_funcionarios": [
+                    {
+                        "salario_engenheiros": salarioEngenheiros
+                    },
+                    {
+                        "salario_peoes": salarioPeoes
+                    },
+                    {
+                        "salario_projetistas": salarioProjetistas
+                    }
+                ]
+            };
+            document.getElementById('submitBuutton').addEventListener('click', function() {
+                console.log("passou aq")
+        
+     
+                    const form = new FormData();
+                form.append('nome', nome);
+                form.append('encarregado', encarregado);
+                form.append('bio', bio);
+                axios.post('/adicionar-obra', form)
+            
+            }); 
+        });
+        
+
+            /*var resultadoDiv = document.getElementById('resultado');
+            resultadoDiv.innerHTML = `
+                <h2>Informações do Projeto</h2>
+                <ul>
+                    <li><strong>Encarregado:</strong> ${encarregado}</li>
+                    <li><strong>Bio:</strong> ${bio}</li>
+                    <li><strong>Status:</strong> ${status}</li>
+                    <li><strong>Orçamento:</strong> ${orcamento}</li>
+                    <li><strong>Gasto Total:</strong> ${gastoTotal}</li>
+                    <li><strong>Localização:</strong> ${localizacao}</li>
+                    <li><strong>Data Prevista:</strong> ${dataPrevista}</li>
+                    <li><strong>Gasto com Funcionários:</strong>
+                        <ul>
+                            <li>Salário Engenheiros: ${salarioEngenheiros}</li>
+                            <li>Salário Peões: ${salarioPeoes}</li>
+                            <li>Salário Projetistas: ${salarioProjetistas}</li>
+                        </ul>
+                    </li>
+                </ul>
+            `;
+        });*/
+    </script>
+</body>
+</html>

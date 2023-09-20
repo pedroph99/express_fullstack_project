@@ -63,7 +63,7 @@
               </div>
 
               <div class="col-12 mt-4">
-                
+                <button id="addProject">+</button>
                 <div class="row" id="projetos">
                   {{#each object_projects}}
       <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
@@ -229,3 +229,8 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="../elementosjs/assets/js/material-dashboard.min.js?v=3.1.0"></script>
+    <script>
+      document.getElementById('addProject').addEventListener('click', function() {
+        window.location.href = '/add-project';
+      });
+    </script>
