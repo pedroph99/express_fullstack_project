@@ -168,7 +168,8 @@ app.get('/home_page_login',auth_mid,  function(req, res) {
         const parsea_projeto = json_parser(path.join(__dirname, `/fake_db/project_info/${projetos[i]}.json`))
         console.log("testeeeeeeeeeeee_projetos")
         if(parsea_projeto != null){
-            projects_bio.push(parsea_projeto.bio)
+            projects_bio.push(parsea_projeto.projeto.bio)
+            
         }
        
     }
@@ -184,11 +185,17 @@ app.get('/home_page_login',auth_mid,  function(req, res) {
     res.render('profile_template', {name: req.session.username,  object_projects})
 
 });
+app.get('/logout', function(req,res){
+    req.session.username = 'NA';
+    res.redirect('/login');
+});
 app.get('/testeajax',auth_mid,  function(req, res) {
     
     res.render('ajax_teste')
-
-
+});
+app.get('/ajaxmessages', function(req, res) {
+    
+    res.render('ajax_messages')
 });
 
 // Páginas de projetos. Essas páginas nos levará a projetos que existem através de parâmetros. É preciso ser encarregado.
@@ -201,10 +208,7 @@ app.get('/projects/:name', auth_mid,  function(req, res) {
     console.log('=====================================')
     console.log(parsea_projeto)
     console.log('=====================================')
-    materiais = []
-    for(let i=0; i<parsea_projeto.materiais.length; i++){
-        materiais.push(parsea_projeto.materiais[i].nome)
-    }
+    
     if(parsea_projeto != null){
         res.render('project_dashboard', {nome: parsea_projeto.encarregado, current_project: req.url.split('/')[2]})
         return

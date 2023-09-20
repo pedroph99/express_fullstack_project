@@ -1,92 +1,69 @@
 {
-    "encarregado": "pedro",
-
-    "bio": "Projeto realizado em parceria com o Hospital da restauração. Projeto de prédio",
-
-
-    "status": "andamento",
-
-
-    "orçamento": 1000000,
-
-
-    "gasto total": 10000,
-
-
-    "localização": "Estrada do bonsuceso 467",
-
-
-    "data_prevista": "20/09/2023",
-
-
-    "gasto_funcionarios":
-    [{
-      "salario_engenheiros": 20000
-    },
-    {
-      "salario_peoes": 100000
-    },
-    {
-      "salario_projetistas": 20000
-    }
-  
-  ],
+  "projeto": {
+    "nome": "Projeto Construção Residencial",
+    "encarregado": "João Silva",
+    "bio": "Projeto para construção de uma casa residencial.",
+    "data_inicio": "2023-09-01",
+    "data_conclusão_prevista": "2024-05-30",
+    "status_atual": "Em andamento",
+    "orçamento_inicial": 50000.0,
+    "orçamento_atual": 15000.0,
     "prazos": [
       {
-        "nome": "Projeto do telhado",
-        "prazo_max": "19/10/2023",
-        "status": "concluido"
+        "etapa": "Fundação",
+        "data_início": "2023-09-10",
+        "data_conclusão_prevista": "2023-10-20",
+        "data_conclusão_real": "2023-10-25",
+        "cumprimento_prazo": "Atrasado",
+        "custo_planejado": 8000.0,
+        "tempo_planejado": 40,
+        "custo_atual": 8500.0,
+        "tempo_atual": 45
       },
       {
-        "nome": "Projeto do telhado",
-        "prazo_max": "19/08/2023",
-        "status": "andamento"
+        "etapa": "Estrutura",
+        "data_início": "2023-11-05",
+        "data_conclusão_prevista": "2024-01-15",
+        "data_conclusão_real": "2024-01-20",
+        "cumprimento_prazo": "Atrasado",
+        "custo_planejado": 12000.0,
+        "tempo_planejado": 60,
+        "custo_atual": 10000.0,
+        "tempo_atual": 65
+      },
+      {
+        "etapa": "Instalações",
+        "data_início": "2024-02-20",
+        "data_conclusão_prevista": "2024-03-30",
+        "data_conclusão_real": "2024-03-10",
+        "cumprimento_prazo": "Antecipado",
+        "custo_planejado": 9000.0,
+        "tempo_planejado": 40,
+        "custo_atual": 7500.0,
+        "tempo_atual": 20
+      },
+      {
+        "etapa": "Acabamento",
+        "data_início": "2024-04-01",
+        "data_conclusão_prevista": "2024-04-30",
+        "data_conclusão_real": null,
+        "cumprimento_prazo": "Em andamento",
+        "custo_planejado": 10000.0,
+        "tempo_planejado": 50,
+        "custo_atual": 8000.0,
+        "tempo_atual": null
       }
-      
     ],
-    "retrabalhos":[
-      {
-        "ocorrido": "retrabalho no projeto do telhado (não sabiam projeção cotada)",
-        "tempo_gasto": 72
-      },
-      {
-        "ocorrido": "atraso na entrega do cimento",
-        "tempo_gasto": 10
-
-      }
-    ],
-    "material_gasto": [
-      {
-        "nome": "cimento",
-        "quantidade_estocada": 30
-       
-      },
-      {
-        "nome": "Cal",
-        "quantidade_estocada": 30
-       
-      },
-      {
-        "nome": "Pedra",
-        "quantidade_estocada": 30
-       
-      }
-
-    ],
-    
-    "acidentes" : [
-      {"ocorrido": "Funcionario desmaiou",
-    "data_ocorrido": "12/08/2023",
-    "seriedade": "Baixa"},
-    
-      {"ocorrido": "Funcionario caiu da escada",
-    "data_ocorrido": "15/08/2023",
-    "seriedade": "Alta"}
-    
-    
-
-    ],
-
-    "materiais": []
-   
+    "nível_conclusão": {
+      "etapa": "Acabamento",
+      "percentual_concluído": 35
+    }
+  },
+  "materiais": [],
+  "clientes": {
+    "nome_cliente": "Família Silva",
+    "contato_cliente": "Maria Silva",
+    "telefone_cliente": "(XX) XXXX-XXXX",
+    "email_cliente": "maria.silva@example.com"
+  }
 }

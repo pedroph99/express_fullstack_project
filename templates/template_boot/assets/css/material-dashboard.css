@@ -15182,7 +15182,7 @@ fieldset:disabled .btn {
   }
 
   .justify-content-lg-between {
-    justify-content: space-between !important;
+    justify-content: center !important;
   }
 
   .justify-content-lg-around {
@@ -16516,7 +16516,7 @@ fieldset:disabled .btn {
   }
 
   .text-lg-start {
-    text-align: left !important;
+    text-align: center !important;
   }
 
   .text-lg-end {
