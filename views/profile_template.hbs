@@ -24,8 +24,10 @@
             <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
               <div class="nav-wrapper position-relative end-0">
                 <ul class="nav nav-pills nav-fill p-1" role="tablist">
+                  
                   <li class="nav-item">
-                    <a class="nav-link mb-0 px-0 py-1 active "  hx-get="/ajax/ajax_projects"
+                    <a class="nav-link mb-0 px-0 py-1 active "  
+                          hx-get="/ajax/ajax_projects"
                           hx-trigger="click"
                           hx-target="#projetos"
                           hx-swap="outerHTML"
@@ -34,14 +36,25 @@
                       <span class="ms-1">Projetos</span>
                     </a>
                   </li>
+
                   <li class="nav-item">
-                    <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
+                    <a class="nav-link mb-0 px-0 py-1 "
+                          hx-get="/ajax/ajaxmessages"
+                          hx-trigger="click"
+                          hx-target="#projetos"
+                          hx-swap="outerHTML"
+                        data-bs-toggle="tab" 
+                        href="javascript:;" 
+                        role="tab" 
+                        aria-selected="false">
                       <i class="material-icons text-lg position-relative">email</i>
-                      <span class="ms-1">Messages</span>
+                      <span class="ms-1">Contatos</span>
                     </a>
                   </li>
+
                   <li class="nav-item">
-                    <a class="nav-link mb-0 px-0 py-1 " hx-get="/ajax/testeajax"
+                    <a class="nav-link mb-0 px-0 py-1 " 
+                          hx-get="/ajax/testeajax"
                           hx-trigger="click"
                           hx-target="#projetos"
                           hx-swap="outerHTML" data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
@@ -111,25 +124,9 @@
                   document.write(new Date().getFullYear())
                 </script>,
                 made with <i class="fa fa-heart"></i> by
-                <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
-                for a better web.
+                <a href="" class="font-weight-bold" target="_blank">Pedro Jiren</a>
+                e amigos.
               </div>
-            </div>
-            <div class="col-lg-6">
-              <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative Tim</a>
-                </li>
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted" target="_blank">About Us</a>
-                </li>
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com/blog" class="nav-link text-muted" target="_blank">Blog</a>
-                </li>
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted" target="_blank">License</a>
-                </li>
-              </ul>
             </div>
           </div>
         </div>

@@ -189,8 +189,10 @@ app.get('/logout', function(req,res){
 app.get('/testeajax',auth_mid,  function(req, res) {
     
     res.render('ajax_teste')
-
-
+});
+app.get('/ajaxmessages', function(req, res) {
+    
+    res.render('ajax_messages')
 });
 
 // Páginas de projetos. Essas páginas nos levará a projetos que existem através de parâmetros. É preciso ser encarregado.
