@@ -67,8 +67,8 @@
             form.append('encarregado', encarregado);
             form.append('bio', bio);
             form.append('materiais', []);
+            console.log(form.values)
             axios.post('/adicionar-obra', form)
-            axios.post('/adicionar-obra', projetoData)
 
                 .then(function (response) {
                     console.log('Requisição enviada com sucesso!', response);
